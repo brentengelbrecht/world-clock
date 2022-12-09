@@ -21,7 +21,7 @@ namespace DirectionalScrollerControl
         private ScrollBarArrowButtonState rightButtonState = ScrollBarArrowButtonState.RightNormal;
 
         // This control does not allow these widths to be altered.
-        private int thumbWidth = 15;
+        private int thumbWidth = 35;
         private int arrowWidth = 17;
 
         // Set the right limit of the thumb's right border.
@@ -82,11 +82,6 @@ namespace DirectionalScrollerControl
 
             // Set the left limit of the thumb's left border.
             thumbLeftLimit = ClientRectangle.X + arrowWidth;
-        }
-
-        private void CentreThumb()
-        {
-            thumbPosition = thumbWidth / 2;
         }
 
         // Draw the scroll bar in its normal state.
@@ -196,18 +191,13 @@ namespace DirectionalScrollerControl
             if (!ScrollBarRenderer.IsSupported)
                 return;
 
+            thumbRectangle.X = ClientRectangle.X + (ClientRectangle.Width / 2) - (thumbWidth / 2);
+
             // Update the thumb position, if the new location is within the bounds.
             if (thumbClicked)
             {
                 thumbClicked = false;
                 thumbState = ScrollBarState.Normal;
-
-                if (e.Location.X > (thumbLeftLimit + thumbPosition) &&
-                    e.Location.X < (thumbRightLimitLeft + thumbPosition))
-                {
-                    thumbRectangle.X = e.Location.X - thumbPosition;
-                    thumbClicked = false;
-                }
             }
 
             // If one of the four thumb movement areas was clicked, stop the timer.
