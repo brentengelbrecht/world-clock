@@ -7,7 +7,7 @@ namespace WorldClock
     public partial class MainForm : Form
     {
         private FlowLayoutPanel mainLayout;
-        private HScrollBar scrollbar;
+        private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
         private ZonedTimeClockControl.ZonedTimeClockControl local, tokyo;
         private Timer timer;
 
@@ -15,10 +15,10 @@ namespace WorldClock
         {
             InitializeComponent();
 
-            scrollbar = new HScrollBar();
-            scrollbar.Minimum = 0;
-            scrollbar.Maximum = 100;
-            scrollbar.Value = 50;
+            scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
+            //scrollbar.Minimum = 0;
+            //scrollbar.Maximum = 100;
+            //scrollbar.Value = 50;
             scrollbar.Width = ClientSize.Width;
             scrollbar.KeyUp += Scrollbar_KeyUp;
 
@@ -52,7 +52,7 @@ namespace WorldClock
 
         private void Scrollbar_KeyUp(object sender, KeyEventArgs e)
         {
-            scrollbar.Value = 50;
+            //scrollbar.Value = 50;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace WorldClock
         {
             if (scrollbar != null)
             {
-                scrollbar.Width = ((Form)sender).ClientSize.Width - 3;
+                scrollbar.Width = ((Form)sender).ClientSize.Width - 9;
             }
         }
     }
