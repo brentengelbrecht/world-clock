@@ -3,6 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
+/*
+ * This code is from https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.scrollbarrenderer?view=windowsdesktop-7.0
+ *  with minor changes to alter the behaviour of the scrollbar
+ */
+
 namespace DirectionalScrollerControl
 {
     public partial class DirectionalScrollerControl: Control
