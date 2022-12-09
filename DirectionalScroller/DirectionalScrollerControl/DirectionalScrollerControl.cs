@@ -26,7 +26,7 @@ namespace DirectionalScrollerControl
         private ScrollBarArrowButtonState rightButtonState = ScrollBarArrowButtonState.RightNormal;
 
         // This control does not allow these widths to be altered.
-        private int thumbWidth = 35;
+        private int thumbWidth = 30;
         private int arrowWidth = 17;
 
         // Set the right limit of the thumb's right border.
