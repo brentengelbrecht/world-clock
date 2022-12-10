@@ -18,9 +18,8 @@ namespace WorldClock
             InitializeComponent();
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
-            //scrollbar.Minimum = 0;
-            //scrollbar.Maximum = 100;
-            //scrollbar.Value = 50;
+            scrollbar.Minimum = -12;
+            scrollbar.Maximum = 12;
             scrollbar.Width = ClientSize.Width;
             scrollbar.OnValueChanged += Scrollbar_ValueChanged;
 

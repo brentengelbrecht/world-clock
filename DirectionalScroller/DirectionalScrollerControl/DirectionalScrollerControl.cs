@@ -31,9 +31,41 @@ namespace DirectionalScrollerControl
 
     public partial class DirectionalScrollerControl: Control
     {
-        private double oldValue;
-        private double value;
-        private double percent;
+        private double oldValue = 0.0;
+        private double value = 0.0;
+        private double percent = 0.0;
+        private int minimum = -10;
+        public int Minimum
+        {
+            get
+            {
+                return minimum;
+            }
+            set
+            {
+                if (value > maximum)
+                {
+                    throw new Exception("Minimum may not be greater than Maximum");
+                }
+                minimum = value;
+            }
+        }
+        private int maximum = 10;
+        public int Maximum
+        {
+            get
+            {
+                return maximum;
+            }
+            set
+            {
+                if (value < maximum)
+                {
+                    throw new Exception("Maximum may not be less than Minimum");
+                }
+                maximum = value;
+            }
+        }
         //Font f1 = new Font("Arial", 8.0f);
         //Brush b1 = Brushes.Black;
 
@@ -81,9 +113,6 @@ namespace DirectionalScrollerControl
             this.Width = 200;
             this.Height = 20;
             this.DoubleBuffered = true;
-
-            this.value = 0.0;
-            this.percent = 0.0;
 
             SetUpScrollBar();
             progressTimer.Interval = 20;
@@ -307,7 +336,8 @@ namespace DirectionalScrollerControl
         protected void SetValue()
         {
             percent = (thumbRectangle.X - thumbRectangle.Width + 4) / 1.0 / (thumbRightLimitLeft - thumbLeftLimit);
-            int intermediate = (int)Math.Truncate((percent - 0.5) * 40);
+            double scaled = percent * maximum;
+            int intermediate = (int)Math.Truncate((scaled - (maximum / 2)) * 4);
             value = intermediate / 2.0;
             if (value != oldValue)
             {
