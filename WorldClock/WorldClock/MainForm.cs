@@ -58,6 +58,12 @@ namespace WorldClock
             Close();
         }
 
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm settings = new SettingsForm();
+            settings.ShowDialog();
+        }
+
         private void Scrollbar_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             timeOffset = e.Value;
