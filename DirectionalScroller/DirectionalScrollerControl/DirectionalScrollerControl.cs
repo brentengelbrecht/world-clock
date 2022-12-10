@@ -12,6 +12,12 @@ namespace DirectionalScrollerControl
 {
     public partial class DirectionalScrollerControl: Control
     {
+        private double oldValue;
+        private double value;
+        private double percent;
+        Font f1 = new Font("Arial", 8.0f);
+        Brush b1 = Brushes.Black;
+
         private Rectangle clickedBarRectangle;
         private Rectangle thumbRectangle;
         private Rectangle leftArrowRectangle;
@@ -26,7 +32,7 @@ namespace DirectionalScrollerControl
         private ScrollBarArrowButtonState rightButtonState = ScrollBarArrowButtonState.RightNormal;
 
         // This control does not allow these widths to be altered.
-        private int thumbWidth = 30;
+        private int thumbWidth = 20;
         private int arrowWidth = 17;
 
         // Set the right limit of the thumb's right border.
@@ -54,6 +60,9 @@ namespace DirectionalScrollerControl
             this.Width = 200;
             this.Height = 20;
             this.DoubleBuffered = true;
+
+            this.value = 0.0;
+            this.percent = 0.0;
 
             SetUpScrollBar();
             progressTimer.Interval = 20;
@@ -87,6 +96,8 @@ namespace DirectionalScrollerControl
 
             // Set the left limit of the thumb's left border.
             thumbLeftLimit = ClientRectangle.X + arrowWidth;
+
+            SetValue();
         }
 
         // Draw the scroll bar in its normal state.
@@ -131,6 +142,7 @@ namespace DirectionalScrollerControl
                 clickedBarRectangle.Width = thumbRightLimitRight - clickedBarRectangle.X;
                 ScrollBarRenderer.DrawRightHorizontalTrack(e.Graphics, clickedBarRectangle, ScrollBarState.Pressed);
             }
+            e.Graphics.DrawString(value.ToString("#0.0"), f1, b1, thumbRectangle.X + 3, thumbRectangle.Y);
         }
 
         // Handle a mouse click in the scroll bar.
@@ -197,6 +209,7 @@ namespace DirectionalScrollerControl
                 return;
 
             thumbRectangle.X = ClientRectangle.X + (ClientRectangle.Width / 2) - (thumbWidth / 2);
+            SetValue();
 
             // Update the thumb position, if the new location is within the bounds.
             if (thumbClicked)
@@ -262,10 +275,24 @@ namespace DirectionalScrollerControl
                 else
                 {
                     thumbRectangle.X = e.Location.X - thumbPosition;
+
+                    SetValue();
                 }
 
                 Invalidate();
             }
+        }
+
+        protected void SetValue()
+        {
+            percent = (thumbRectangle.X - thumbRectangle.Width + 4) / 1.0 / (thumbRightLimitLeft - thumbLeftLimit);
+            int intermediate = percent >= 0.5f ? (int)Math.Truncate((percent - 0.5) * 40) : (int)Math.Truncate((percent - 0.5) * -40);
+            value = intermediate / 2.0;
+            if (value != oldValue)
+            {
+                // TODO Fire the ValueChanged event
+            }
+            oldValue = value;
         }
 
         // Recalculate the sizes of the scroll bar elements.
