@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
+using DirectionalScrollerControl;
 
 namespace WorldClock
 {
@@ -10,6 +11,7 @@ namespace WorldClock
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
         private ZonedTimeClockControl.ZonedTimeClockControl local, tokyo;
         private Timer timer;
+        private double timeOffset; 
 
         public MainForm()
         {
@@ -20,7 +22,7 @@ namespace WorldClock
             //scrollbar.Maximum = 100;
             //scrollbar.Value = 50;
             scrollbar.Width = ClientSize.Width;
-            scrollbar.KeyUp += Scrollbar_KeyUp;
+            scrollbar.OnValueChanged += Scrollbar_ValueChanged;
 
             local = new ZonedTimeClockControl.ZonedTimeClockControl();
             local.Location = new Point(0, 0);
@@ -44,15 +46,12 @@ namespace WorldClock
 
             Controls.Add(mainLayout);
 
+            UpdateTimes();
+
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
-        }
-
-        private void Scrollbar_KeyUp(object sender, KeyEventArgs e)
-        {
-            //scrollbar.Value = 50;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -60,9 +59,26 @@ namespace WorldClock
             Close();
         }
 
+        private void Scrollbar_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            timeOffset = e.Value;
+            UpdateTimes();
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
+            UpdateTimes();
+        }
+
+        private void UpdateTimes()
+        {
             DateTime dt = DateTime.Now;
+            if (timeOffset != 0)
+            {
+                int hours = (int)Math.Truncate(timeOffset);
+                int minutes = (int)((timeOffset - hours) * 60);
+                dt = dt.AddHours(hours).AddMinutes(minutes);
+            }
 
             TimeZoneInfo tzLocal = TimeZoneInfo.Local;
             local.Place = "Local";

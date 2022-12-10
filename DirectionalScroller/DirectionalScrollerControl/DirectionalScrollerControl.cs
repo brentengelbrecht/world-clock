@@ -10,13 +10,34 @@ using System.Windows.Forms.VisualStyles;
 
 namespace DirectionalScrollerControl
 {
+    public class ValueChangedEventArgs : EventArgs
+    {
+        private double value;
+        public double Value
+        {
+            get
+            {
+                return this.value;
+            }
+        }
+
+        public ValueChangedEventArgs(double value)
+        {
+            this.value = value;
+        }
+    }
+
+    public delegate void ValueChangedHandler(object sender, ValueChangedEventArgs e);
+
     public partial class DirectionalScrollerControl: Control
     {
         private double oldValue;
         private double value;
         private double percent;
-        Font f1 = new Font("Arial", 8.0f);
-        Brush b1 = Brushes.Black;
+        //Font f1 = new Font("Arial", 8.0f);
+        //Brush b1 = Brushes.Black;
+
+        public ValueChangedHandler OnValueChanged;
 
         private Rectangle clickedBarRectangle;
         private Rectangle thumbRectangle;
@@ -142,7 +163,7 @@ namespace DirectionalScrollerControl
                 clickedBarRectangle.Width = thumbRightLimitRight - clickedBarRectangle.X;
                 ScrollBarRenderer.DrawRightHorizontalTrack(e.Graphics, clickedBarRectangle, ScrollBarState.Pressed);
             }
-            e.Graphics.DrawString(value.ToString("#0.0"), f1, b1, thumbRectangle.X + 3, thumbRectangle.Y);
+            //e.Graphics.DrawString(value.ToString("#0.0"), f1, b1, thumbRectangle.X + 3, thumbRectangle.Y);
         }
 
         // Handle a mouse click in the scroll bar.
@@ -286,11 +307,11 @@ namespace DirectionalScrollerControl
         protected void SetValue()
         {
             percent = (thumbRectangle.X - thumbRectangle.Width + 4) / 1.0 / (thumbRightLimitLeft - thumbLeftLimit);
-            int intermediate = percent >= 0.5f ? (int)Math.Truncate((percent - 0.5) * 40) : (int)Math.Truncate((percent - 0.5) * -40);
+            int intermediate = (int)Math.Truncate((percent - 0.5) * 40);
             value = intermediate / 2.0;
             if (value != oldValue)
             {
-                // TODO Fire the ValueChanged event
+                OnValueChanged?.Invoke(this, new ValueChangedEventArgs(value));
             }
             oldValue = value;
         }

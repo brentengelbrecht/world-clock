@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>WorldClock.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DirectionalScrollerControl">
       <HintPath>..\..\DirectionalScroller\DirectionalScrollerControl\bin\Debug\DirectionalScrollerControl.dll</HintPath>
