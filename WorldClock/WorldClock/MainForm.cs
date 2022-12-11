@@ -7,6 +7,9 @@ namespace WorldClock
 {
     public partial class MainForm : Form
     {
+        private const String registryHome = @"Software\Zooloo\WorldClock";
+
+        private Configuration configuration;
         private FlowLayoutPanel mainLayout;
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
         private ZonedTimeClockControl.ZonedTimeClockControl local, tokyo;
@@ -16,6 +19,8 @@ namespace WorldClock
         public MainForm()
         {
             InitializeComponent();
+
+            configuration = new Configuration(registryHome);
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
             scrollbar.Minimum = -12;
@@ -60,7 +65,7 @@ namespace WorldClock
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settings = new SettingsForm();
+            SettingsForm settings = new SettingsForm(configuration);
             settings.ShowDialog();
         }
 

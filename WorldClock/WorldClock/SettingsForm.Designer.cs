@@ -31,16 +31,16 @@ namespace WorldClock
         {
             this.TabControl = new System.Windows.Forms.TabControl();
             this.TabPage = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ButtonDown = new System.Windows.Forms.Button();
+            this.ButtonUp = new System.Windows.Forms.Button();
+            this.ButtonOut = new System.Windows.Forms.Button();
+            this.ButtonIn = new System.Windows.Forms.Button();
+            this.TextBoxFilter = new System.Windows.Forms.TextBox();
+            this.ListBoxPlaces = new System.Windows.Forms.ListBox();
+            this.ListBoxSelected = new System.Windows.Forms.ListBox();
             this.ButtonOk = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
-            this.ListBoxSelected = new System.Windows.Forms.ListBox();
-            this.ListBoxPlaces = new System.Windows.Forms.ListBox();
-            this.TextBoxFilter = new System.Windows.Forms.TextBox();
-            this.ButtonIn = new System.Windows.Forms.Button();
-            this.ButtonOut = new System.Windows.Forms.Button();
-            this.ButtonUp = new System.Windows.Forms.Button();
-            this.ButtonDown = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.TabControl.SuspendLayout();
             this.TabPage.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +72,80 @@ namespace WorldClock
             this.TabPage.Text = "Timezones";
             this.TabPage.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(50, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Filter";
+            // 
+            // ButtonDown
+            // 
+            this.ButtonDown.Location = new System.Drawing.Point(543, 128);
+            this.ButtonDown.Name = "ButtonDown";
+            this.ButtonDown.Size = new System.Drawing.Size(30, 23);
+            this.ButtonDown.TabIndex = 6;
+            this.ButtonDown.Text = "down";
+            this.ButtonDown.UseVisualStyleBackColor = true;
+            this.ButtonDown.Click += new System.EventHandler(this.ButtonDown_Click);
+            // 
+            // ButtonUp
+            // 
+            this.ButtonUp.Location = new System.Drawing.Point(543, 99);
+            this.ButtonUp.Name = "ButtonUp";
+            this.ButtonUp.Size = new System.Drawing.Size(30, 23);
+            this.ButtonUp.TabIndex = 5;
+            this.ButtonUp.Text = "up";
+            this.ButtonUp.UseVisualStyleBackColor = true;
+            this.ButtonUp.Click += new System.EventHandler(this.ButtonUp_Click);
+            // 
+            // ButtonOut
+            // 
+            this.ButtonOut.Location = new System.Drawing.Point(288, 128);
+            this.ButtonOut.Name = "ButtonOut";
+            this.ButtonOut.Size = new System.Drawing.Size(30, 23);
+            this.ButtonOut.TabIndex = 3;
+            this.ButtonOut.Text = "out";
+            this.ButtonOut.UseVisualStyleBackColor = true;
+            this.ButtonOut.Click += new System.EventHandler(this.ButtonOut_Click);
+            // 
+            // ButtonIn
+            // 
+            this.ButtonIn.Location = new System.Drawing.Point(288, 99);
+            this.ButtonIn.Name = "ButtonIn";
+            this.ButtonIn.Size = new System.Drawing.Size(30, 23);
+            this.ButtonIn.TabIndex = 2;
+            this.ButtonIn.Text = "in";
+            this.ButtonIn.UseVisualStyleBackColor = true;
+            this.ButtonIn.Click += new System.EventHandler(this.ButtonIn_Click);
+            // 
+            // TextBoxFilter
+            // 
+            this.TextBoxFilter.Location = new System.Drawing.Point(84, 29);
+            this.TextBoxFilter.Name = "TextBoxFilter";
+            this.TextBoxFilter.Size = new System.Drawing.Size(182, 20);
+            this.TextBoxFilter.TabIndex = 0;
+            this.TextBoxFilter.TextChanged += new System.EventHandler(this.TextBoxFilter_TextChanged);
+            // 
+            // ListBoxPlaces
+            // 
+            this.ListBoxPlaces.Location = new System.Drawing.Point(82, 55);
+            this.ListBoxPlaces.Name = "ListBoxPlaces";
+            this.ListBoxPlaces.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.ListBoxPlaces.Size = new System.Drawing.Size(184, 160);
+            this.ListBoxPlaces.Sorted = true;
+            this.ListBoxPlaces.TabIndex = 1;
+            // 
+            // ListBoxSelected
+            // 
+            this.ListBoxSelected.FormattingEnabled = true;
+            this.ListBoxSelected.Location = new System.Drawing.Point(340, 55);
+            this.ListBoxSelected.Name = "ListBoxSelected";
+            this.ListBoxSelected.Size = new System.Drawing.Size(184, 160);
+            this.ListBoxSelected.TabIndex = 4;
+            // 
             // ButtonOk
             // 
             this.ButtonOk.Location = new System.Drawing.Point(508, 322);
@@ -91,80 +165,6 @@ namespace WorldClock
             this.ButtonCancel.TabIndex = 1;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
-            // 
-            // ListBoxSelected
-            // 
-            this.ListBoxSelected.FormattingEnabled = true;
-            this.ListBoxSelected.Location = new System.Drawing.Point(340, 55);
-            this.ListBoxSelected.Name = "ListBoxSelected";
-            this.ListBoxSelected.Size = new System.Drawing.Size(184, 160);
-            this.ListBoxSelected.TabIndex = 4;
-            // 
-            // ListBoxPlaces
-            // 
-            this.ListBoxPlaces.Location = new System.Drawing.Point(82, 55);
-            this.ListBoxPlaces.Name = "ListBoxPlaces";
-            this.ListBoxPlaces.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.ListBoxPlaces.Size = new System.Drawing.Size(184, 160);
-            this.ListBoxPlaces.Sorted = true;
-            this.ListBoxPlaces.TabIndex = 1;
-            // 
-            // TextBoxFilter
-            // 
-            this.TextBoxFilter.Location = new System.Drawing.Point(84, 29);
-            this.TextBoxFilter.Name = "TextBoxFilter";
-            this.TextBoxFilter.Size = new System.Drawing.Size(182, 20);
-            this.TextBoxFilter.TabIndex = 0;
-            this.TextBoxFilter.TextChanged += new System.EventHandler(this.TextBoxFilter_TextChanged);
-            // 
-            // ButtonIn
-            // 
-            this.ButtonIn.Location = new System.Drawing.Point(288, 99);
-            this.ButtonIn.Name = "ButtonIn";
-            this.ButtonIn.Size = new System.Drawing.Size(30, 23);
-            this.ButtonIn.TabIndex = 2;
-            this.ButtonIn.Text = "in";
-            this.ButtonIn.UseVisualStyleBackColor = true;
-            this.ButtonIn.Click += new System.EventHandler(this.ButtonIn_Click);
-            // 
-            // ButtonOut
-            // 
-            this.ButtonOut.Location = new System.Drawing.Point(288, 128);
-            this.ButtonOut.Name = "ButtonOut";
-            this.ButtonOut.Size = new System.Drawing.Size(30, 23);
-            this.ButtonOut.TabIndex = 3;
-            this.ButtonOut.Text = "out";
-            this.ButtonOut.UseVisualStyleBackColor = true;
-            this.ButtonOut.Click += new System.EventHandler(this.ButtonOut_Click);
-            // 
-            // ButtonUp
-            // 
-            this.ButtonUp.Location = new System.Drawing.Point(543, 99);
-            this.ButtonUp.Name = "ButtonUp";
-            this.ButtonUp.Size = new System.Drawing.Size(30, 23);
-            this.ButtonUp.TabIndex = 5;
-            this.ButtonUp.Text = "up";
-            this.ButtonUp.UseVisualStyleBackColor = true;
-            this.ButtonUp.Click += new System.EventHandler(this.ButtonUp_Click);
-            // 
-            // ButtonDown
-            // 
-            this.ButtonDown.Location = new System.Drawing.Point(543, 128);
-            this.ButtonDown.Name = "ButtonDown";
-            this.ButtonDown.Size = new System.Drawing.Size(30, 23);
-            this.ButtonDown.TabIndex = 6;
-            this.ButtonDown.Text = "down";
-            this.ButtonDown.UseVisualStyleBackColor = true;
-            this.ButtonDown.Click += new System.EventHandler(this.ButtonDown_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Filter";
             // 
             // SettingsForm
             // 

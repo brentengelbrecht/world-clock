@@ -8,10 +8,13 @@ namespace WorldClock
     public partial class SettingsForm : Form
     {
         private IReadOnlyCollection<TimeZoneInfo> zones;
+        private Configuration configuration;
 
-        public SettingsForm()
+        public SettingsForm(Configuration Configuration)
         {
             InitializeComponent();
+
+            this.configuration = Configuration;
 
             ButtonIn.Text = char.ConvertFromUtf32(9654);
             ButtonOut.Text = char.ConvertFromUtf32(9664);
@@ -20,16 +23,36 @@ namespace WorldClock
 
             zones = GetAllTimezones();
             PopulatePlaces();
+            PopulateSelected();
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
         {
+            ArrayList listToSave = new ArrayList();
+            foreach (String s in ListBoxSelected.Items)
+            {
+                listToSave.Add(s);
+            }
+            configuration.SetTimezoneIds(listToSave);
+
+            configuration.Save();
             Close();
         }
 
         private IReadOnlyCollection<TimeZoneInfo> GetAllTimezones()
         {
             return TimeZoneInfo.GetSystemTimeZones();
+        }
+
+        private void PopulateSelected()
+        {
+            ArrayList loaded = (ArrayList)configuration.GetTimezoneIds();
+            ListBoxSelected.Items.Clear();
+            foreach (String s in loaded)
+            {
+                ListBoxSelected.Items.Add(s);
+                ListBoxPlaces.Items.Remove(s);
+            }
         }
 
         private void PopulatePlaces()
