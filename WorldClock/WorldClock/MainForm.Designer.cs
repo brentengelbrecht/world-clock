@@ -84,6 +84,8 @@ namespace WorldClock
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.MainMenu);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.MainMenu;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";

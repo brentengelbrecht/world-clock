@@ -36,7 +36,13 @@ namespace WorldClock
             configuration.SetTimezoneIds(listToSave);
 
             configuration.Save();
+            this.DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private IReadOnlyCollection<TimeZoneInfo> GetAllTimezones()

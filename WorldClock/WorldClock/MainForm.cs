@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Drawing;
 using DirectionalScrollerControl;
+using System.Collections;
 
 namespace WorldClock
 {
@@ -12,7 +13,7 @@ namespace WorldClock
         private Configuration configuration;
         private FlowLayoutPanel mainLayout;
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
-        private ZonedTimeClockControl.ZonedTimeClockControl local, tokyo;
+        private ZonedTimeClockControl.ZonedTimeClockControl local;
         private Timer timer;
         private double timeOffset; 
 
@@ -32,11 +33,7 @@ namespace WorldClock
             local.Location = new Point(0, 0);
             local.AutoSize = true;
             local.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
-            tokyo = new ZonedTimeClockControl.ZonedTimeClockControl();
-            tokyo.Location = new Point(0, 0);
-            tokyo.AutoSize = true;
-            tokyo.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            local.Place = "Local";
 
             mainLayout = new FlowLayoutPanel();
             mainLayout.Location = new Point(0, 30);
@@ -44,11 +41,9 @@ namespace WorldClock
             mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mainLayout.FlowDirection = FlowDirection.TopDown;
 
-            mainLayout.Controls.Add(scrollbar);
-            mainLayout.Controls.Add(local);
-            mainLayout.Controls.Add(tokyo);
+            this.Controls.Add(mainLayout);
 
-            Controls.Add(mainLayout);
+            SetupMainLayout();
 
             UpdateTimes();
 
@@ -66,7 +61,12 @@ namespace WorldClock
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settings = new SettingsForm(configuration);
-            settings.ShowDialog();
+            if (settings.ShowDialog() == DialogResult.OK)
+            {
+                Timer.Enabled = false;
+                SetupMainLayout();
+                Timer.Enabled = true;
+            }
         }
 
         private void Scrollbar_ValueChanged(object sender, ValueChangedEventArgs e)
@@ -80,6 +80,24 @@ namespace WorldClock
             UpdateTimes();
         }
 
+        private void SetupMainLayout()
+        {
+            mainLayout.Controls.Clear();
+            mainLayout.Controls.Add(scrollbar);
+            mainLayout.Controls.Add(local);
+
+            ArrayList ids = (ArrayList)configuration.GetTimezoneIds();
+            foreach (String s in ids)
+            {
+                ZonedTimeClockControl.ZonedTimeClockControl place = new ZonedTimeClockControl.ZonedTimeClockControl();
+                place.Location = new Point(0, 0);
+                place.AutoSize = true;
+                place.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                place.Place = s;
+                mainLayout.Controls.Add(place);
+            }
+        }
+
         private void UpdateTimes()
         {
             DateTime dt = DateTime.Now;
@@ -90,15 +108,27 @@ namespace WorldClock
                 dt = dt.AddHours(hours).AddMinutes(minutes);
             }
 
-            TimeZoneInfo tzLocal = TimeZoneInfo.Local;
-            local.Place = "Local";
-            local.Time = dt;
-
-            TimeZoneInfo tzTokyo = TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
-            TimeSpan ts = tzTokyo.BaseUtcOffset;
-            DateTime tokyoTime = dt.AddHours(ts.Hours).AddMinutes(ts.Minutes);
-            tokyo.Place = "Tokyo, Japan";
-            tokyo.Time = tokyoTime;
+            int i = 0;
+            foreach (Control ctrl in mainLayout.Controls)
+            {
+                if (ctrl is ZonedTimeClockControl.ZonedTimeClockControl)
+                {
+                    ZonedTimeClockControl.ZonedTimeClockControl next = (ZonedTimeClockControl.ZonedTimeClockControl)ctrl;
+                    if (i < 2)
+                    {
+                        TimeZoneInfo tzLocal = TimeZoneInfo.Local;
+                        local.Time = dt;
+                    }
+                    else
+                    {
+                        TimeZoneInfo tzNext = TimeZoneInfo.FindSystemTimeZoneById(next.Place);
+                        TimeSpan ts = tzNext.BaseUtcOffset;
+                        DateTime nextTime = dt.AddHours(ts.Hours).AddMinutes(ts.Minutes);
+                        next.Time = nextTime;
+                    }
+                }
+                i++;
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
