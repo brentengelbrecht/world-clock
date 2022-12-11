@@ -9,6 +9,7 @@ namespace WorldClock
     public partial class MainForm : Form
     {
         private const String registryHome = @"Software\Zooloo\WorldClock";
+        private const String localName = "Local";
 
         private Configuration configuration;
         private FlowLayoutPanel mainLayout;
@@ -33,7 +34,7 @@ namespace WorldClock
             local.Location = new Point(0, 0);
             local.AutoSize = true;
             local.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            local.Place = "Local";
+            local.Place = localName;
 
             mainLayout = new FlowLayoutPanel();
             mainLayout.Location = new Point(0, 30);
@@ -108,13 +109,13 @@ namespace WorldClock
                 dt = dt.AddHours(hours).AddMinutes(minutes);
             }
 
-            int i = 0;
-            foreach (Control ctrl in mainLayout.Controls)
+            for (int i = 0; i < mainLayout.Controls.Count; i++)
             {
+                Control ctrl = mainLayout.Controls[i];
                 if (ctrl is ZonedTimeClockControl.ZonedTimeClockControl)
                 {
                     ZonedTimeClockControl.ZonedTimeClockControl next = (ZonedTimeClockControl.ZonedTimeClockControl)ctrl;
-                    if (i < 2)
+                    if (next.Place == localName)
                     {
                         TimeZoneInfo tzLocal = TimeZoneInfo.Local;
                         local.Time = dt;
@@ -127,7 +128,6 @@ namespace WorldClock
                         next.Time = nextTime;
                     }
                 }
-                i++;
             }
         }
 
