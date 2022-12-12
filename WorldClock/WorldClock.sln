@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZonedTimeClockControl", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalScrollerControl", "..\DirectionalScroller\DirectionalScrollerControl\DirectionalScrollerControl.csproj", "{01190706-F7F5-4B14-8BFA-655100310C09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvgImage", "..\SvgImage\SvgImage\SvgImage.csproj", "{DA03D38D-3471-44B8-8344-C412E41E9ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvgImageList", "..\SvgImageList\SvgImageList\SvgImageList.csproj", "{914F2078-39AF-441E-A05F-FFA3AA1262B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,14 +83,14 @@ Global
 		{01190706-F7F5-4B14-8BFA-655100310C09}.Debug|x86.Build.0 = Debug|Any CPU
 		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|ARM.ActiveCfg = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|ARM.Build.0 = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|ARM64.Build.0 = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|x64.ActiveCfg = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|x64.Build.0 = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|x86.ActiveCfg = Release|Any CPU
-		{01190706-F7F5-4B14-8BFA-655100310C09}.Release|x86.Build.0 = Release|Any CPU
+		{DA03D38D-3471-44B8-8344-C412E41E9ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA03D38D-3471-44B8-8344-C412E41E9ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA03D38D-3471-44B8-8344-C412E41E9ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA03D38D-3471-44B8-8344-C412E41E9ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{914F2078-39AF-441E-A05F-FFA3AA1262B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{914F2078-39AF-441E-A05F-FFA3AA1262B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{914F2078-39AF-441E-A05F-FFA3AA1262B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{914F2078-39AF-441E-A05F-FFA3AA1262B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

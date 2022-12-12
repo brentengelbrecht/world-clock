@@ -4,10 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{88CDFA0D-0540-4827-8083-BEBA1F1C0869}</ProjectGuid>
+    <ProjectGuid>{914F2078-39AF-441E-A05F-FFA3AA1262B4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ZonedTimeClockControl</RootNamespace>
-    <AssemblyName>ZonedTimeClockControl</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SvgImageList</RootNamespace>
+    <AssemblyName>SvgImageList</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -36,33 +37,16 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZonedTimeClockControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ZonedTimeClockControl.Designer.cs">
-      <DependentUpon>ZonedTimeClockControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="SvgImageList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ZonedTimeClockControl.resx">
-      <DependentUpon>ZonedTimeClockControl.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\SvgImageList\SvgImageList\SvgImageList.csproj">
-      <Project>{914F2078-39AF-441E-A05F-FFA3AA1262B4}</Project>
-      <Name>SvgImageList</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SvgImage\SvgImage\SvgImage.csproj">
-      <Project>{da03d38d-3471-44b8-8344-c412e41e9acf}</Project>
+      <Project>{DA03D38D-3471-44B8-8344-C412E41E9ACF}</Project>
       <Name>SvgImage</Name>
     </ProjectReference>
   </ItemGroup>

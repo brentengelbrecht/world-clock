@@ -155,5 +155,15 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SvgImageList\SvgImageList\SvgImageList.csproj">
+      <Project>{914F2078-39AF-441E-A05F-FFA3AA1262B4}</Project>
+      <Name>SvgImageList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SvgImage\SvgImage\SvgImage.csproj">
+      <Project>{DA03D38D-3471-44B8-8344-C412E41E9ACF}</Project>
+      <Name>SvgImage</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,24 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.MainLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.PlaceLabel = new System.Windows.Forms.Label();
-            this.LabelTime = new System.Windows.Forms.Label();
-            this.Layout.SuspendLayout();
+            this.DigitsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.H1 = new System.Windows.Forms.PictureBox();
+            this.H2 = new System.Windows.Forms.PictureBox();
+            this.M1 = new System.Windows.Forms.PictureBox();
+            this.M2 = new System.Windows.Forms.PictureBox();
+            this.S1 = new System.Windows.Forms.PictureBox();
+            this.S2 = new System.Windows.Forms.PictureBox();
+            this.MainLayout.SuspendLayout();
+            this.DigitsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.H1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.H2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.M1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.M2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.S1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.S2)).BeginInit();
             this.SuspendLayout();
             // 
-            // Layout
+            // MainLayout
             // 
-            this.Layout.AutoSize = true;
-            this.Layout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Layout.Controls.Add(this.PlaceLabel);
-            this.Layout.Controls.Add(this.LabelTime);
-            this.Layout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.Layout.Location = new System.Drawing.Point(0, 0);
-            this.Layout.Margin = new System.Windows.Forms.Padding(4);
-            this.Layout.Name = "Layout";
-            this.Layout.Size = new System.Drawing.Size(303, 93);
-            this.Layout.TabIndex = 0;
+            this.MainLayout.AutoSize = true;
+            this.MainLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.MainLayout.Controls.Add(this.PlaceLabel);
+            this.MainLayout.Controls.Add(this.DigitsPanel);
+            this.MainLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.MainLayout.Margin = new System.Windows.Forms.Padding(4);
+            this.MainLayout.Name = "MainLayout";
+            this.MainLayout.Size = new System.Drawing.Size(381, 128);
+            this.MainLayout.TabIndex = 0;
             // 
             // PlaceLabel
             // 
@@ -57,17 +70,67 @@
             this.PlaceLabel.TabIndex = 0;
             this.PlaceLabel.Text = "label1";
             // 
-            // LabelTime
+            // DigitsPanel
             // 
-            this.LabelTime.AutoSize = true;
-            this.LabelTime.Font = new System.Drawing.Font("DS-Digital", 46F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTime.Location = new System.Drawing.Point(4, 17);
-            this.LabelTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LabelTime.Name = "LabelTime";
-            this.LabelTime.Size = new System.Drawing.Size(295, 76);
-            this.LabelTime.TabIndex = 1;
-            this.LabelTime.Text = "00:00:00";
-            this.LabelTime.SizeChanged += new System.EventHandler(this.LabelTime_SizeChanged);
+            this.DigitsPanel.AutoSize = true;
+            this.DigitsPanel.Controls.Add(this.H1);
+            this.DigitsPanel.Controls.Add(this.H2);
+            this.DigitsPanel.Controls.Add(this.M1);
+            this.DigitsPanel.Controls.Add(this.M2);
+            this.DigitsPanel.Controls.Add(this.S1);
+            this.DigitsPanel.Controls.Add(this.S2);
+            this.DigitsPanel.Location = new System.Drawing.Point(3, 20);
+            this.DigitsPanel.Name = "DigitsPanel";
+            this.DigitsPanel.Size = new System.Drawing.Size(375, 105);
+            this.DigitsPanel.TabIndex = 1;
+            // 
+            // H1
+            // 
+            this.H1.Location = new System.Drawing.Point(3, 3);
+            this.H1.Name = "H1";
+            this.H1.Size = new System.Drawing.Size(60, 99);
+            this.H1.TabIndex = 0;
+            this.H1.TabStop = false;
+            // 
+            // H2
+            // 
+            this.H2.Location = new System.Drawing.Point(69, 3);
+            this.H2.Name = "H2";
+            this.H2.Size = new System.Drawing.Size(60, 99);
+            this.H2.TabIndex = 1;
+            this.H2.TabStop = false;
+            // 
+            // M1
+            // 
+            this.M1.Location = new System.Drawing.Point(135, 3);
+            this.M1.Name = "M1";
+            this.M1.Size = new System.Drawing.Size(53, 99);
+            this.M1.TabIndex = 2;
+            this.M1.TabStop = false;
+            // 
+            // M2
+            // 
+            this.M2.Location = new System.Drawing.Point(194, 3);
+            this.M2.Name = "M2";
+            this.M2.Size = new System.Drawing.Size(56, 99);
+            this.M2.TabIndex = 3;
+            this.M2.TabStop = false;
+            // 
+            // S1
+            // 
+            this.S1.Location = new System.Drawing.Point(256, 3);
+            this.S1.Name = "S1";
+            this.S1.Size = new System.Drawing.Size(54, 99);
+            this.S1.TabIndex = 4;
+            this.S1.TabStop = false;
+            // 
+            // S2
+            // 
+            this.S2.Location = new System.Drawing.Point(316, 3);
+            this.S2.Name = "S2";
+            this.S2.Size = new System.Drawing.Size(56, 99);
+            this.S2.TabIndex = 5;
+            this.S2.TabStop = false;
             // 
             // ZonedTimeClockControl
             // 
@@ -75,12 +138,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.Layout);
+            this.Controls.Add(this.MainLayout);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ZonedTimeClockControl";
-            this.Size = new System.Drawing.Size(307, 97);
-            this.Layout.ResumeLayout(false);
-            this.Layout.PerformLayout();
+            this.Size = new System.Drawing.Size(1067, 554);
+            this.MainLayout.ResumeLayout(false);
+            this.MainLayout.PerformLayout();
+            this.DigitsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.H1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.H2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.M1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.M2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.S1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.S2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,8 +158,14 @@
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel Layout;
+        private System.Windows.Forms.FlowLayoutPanel MainLayout;
         private System.Windows.Forms.Label PlaceLabel;
-        private System.Windows.Forms.Label LabelTime;
+        private System.Windows.Forms.FlowLayoutPanel DigitsPanel;
+        private System.Windows.Forms.PictureBox H1;
+        private System.Windows.Forms.PictureBox H2;
+        private System.Windows.Forms.PictureBox M1;
+        private System.Windows.Forms.PictureBox M2;
+        private System.Windows.Forms.PictureBox S1;
+        private System.Windows.Forms.PictureBox S2;
     }
 }

@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using DirectionalScrollerControl;
 using System.Collections;
+using System.IO;
 
 namespace WorldClock
 {
@@ -12,6 +13,7 @@ namespace WorldClock
         private const String localName = "Local";
 
         private Configuration configuration;
+        private SvgImageList.SvgImageList digits;
         private FlowLayoutPanel mainLayout;
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
         private ZonedTimeClockControl.ZonedTimeClockControl local;
@@ -41,6 +43,7 @@ namespace WorldClock
             scrollbar.OnValueChanged += Scrollbar_ValueChanged;
 
             local = new ZonedTimeClockControl.ZonedTimeClockControl();
+            local.SvgImageList = digits;
             local.Location = new Point(0, 0);
             local.AutoSize = true;
             local.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -107,6 +110,7 @@ namespace WorldClock
             foreach (String s in ids)
             {
                 ZonedTimeClockControl.ZonedTimeClockControl place = new ZonedTimeClockControl.ZonedTimeClockControl();
+                place.SvgImageList = digits;
                 place.Location = new Point(0, 0);
                 place.AutoSize = true;
                 place.AutoSizeMode = AutoSizeMode.GrowAndShrink;
