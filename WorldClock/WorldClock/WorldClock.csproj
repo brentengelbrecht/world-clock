@@ -141,6 +141,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="digit_0.svg" />
+    <EmbeddedResource Include="digit_1.svg" />
+    <EmbeddedResource Include="digit_2.svg" />
+    <EmbeddedResource Include="digit_3.svg" />
+    <EmbeddedResource Include="digit_4.svg" />
+    <EmbeddedResource Include="digit_5.svg" />
+    <EmbeddedResource Include="digit_6.svg" />
+    <EmbeddedResource Include="digit_7.svg" />
+    <EmbeddedResource Include="digit_8.svg" />
+    <EmbeddedResource Include="digit_9.svg" />
     <Content Include="globe-clock.ico" />
   </ItemGroup>
   <ItemGroup>

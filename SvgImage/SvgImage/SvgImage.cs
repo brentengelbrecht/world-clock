@@ -1,6 +1,7 @@
 ﻿using Svg;
 using System;
 using System.Drawing;
+using System.IO;
 
 namespace SvgImage
 {
@@ -57,6 +58,11 @@ namespace SvgImage
             LoadFromFile(PathName);
         }
 
+        public SvgImage(Stream Data) : this()
+        {
+            LoadFromStream(Data);
+        }
+
         public SvgImage(int Width, int Height, String PathName) : this()
         {
             this.Width = Width;
@@ -64,10 +70,23 @@ namespace SvgImage
             LoadFromFile(PathName);
         }
 
+        public SvgImage(int Width, int Height, Stream Data) : this()
+        {
+            this.Width = Width;
+            this.Height = Height;
+            LoadFromStream(Data);
+        }
+
         private void LoadFromFile(String PathName)
         {
             documentLocation = PathName;
             svgDoc = SvgDocument.Open<SvgDocument>(PathName, null);
+        }
+
+        private void LoadFromStream(Stream Name)
+        {
+            documentLocation = "Stream:" + Name.ToString();
+            svgDoc = SvgDocument.Open<SvgDocument>(Name, null);
         }
 
         public Bitmap Draw()

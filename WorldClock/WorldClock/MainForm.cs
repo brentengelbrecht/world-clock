@@ -4,6 +4,7 @@ using System.Drawing;
 using DirectionalScrollerControl;
 using System.Collections;
 using System.IO;
+using System.Reflection;
 
 namespace WorldClock
 {
@@ -29,12 +30,17 @@ namespace WorldClock
 
             configuration = new Configuration(registryHome);
 
-            mainLayout = new FlowLayoutPanel();
-            mainLayout.Location = new Point(0, 30);
-            mainLayout.AutoSize = true;
-            mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            mainLayout.FlowDirection = FlowDirection.TopDown;
-            mainLayout.SizeChanged += MainLayout_SizeChanged;
+            digits = new SvgImageList.SvgImageList();
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_0.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_1.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_2.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_3.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_4.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_5.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_6.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_7.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_8.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_9.svg")));
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
             scrollbar.Minimum = -12;
@@ -61,6 +67,12 @@ namespace WorldClock
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
+        }
+
+        private Stream GetResource(String Name)
+        {
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            return myAssembly.GetManifestResourceStream("WorldClock." + Name);
         }
 
         private void MainLayout_SizeChanged(object sender, EventArgs e)
