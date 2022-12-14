@@ -24,8 +24,9 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -38,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,7 +66,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DirectionalScrollerControl">
@@ -135,12 +137,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="WorldClock_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="lean_0.svg" />
+    <EmbeddedResource Include="lean_1.svg" />
+    <EmbeddedResource Include="lean_2.svg" />
+    <EmbeddedResource Include="lean_3.svg" />
+    <EmbeddedResource Include="lean_4.svg" />
+    <EmbeddedResource Include="lean_5.svg" />
+    <EmbeddedResource Include="lean_6.svg" />
+    <EmbeddedResource Include="lean_7.svg" />
+    <EmbeddedResource Include="lean_8.svg" />
+    <EmbeddedResource Include="lean_9.svg" />
+    <EmbeddedResource Include="lean_sep.svg" />
     <EmbeddedResource Include="digit_0.svg" />
     <EmbeddedResource Include="digit_1.svg" />
     <EmbeddedResource Include="digit_2.svg" />

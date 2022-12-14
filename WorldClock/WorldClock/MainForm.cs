@@ -15,6 +15,7 @@ namespace WorldClock
 
         private Configuration configuration;
         private SvgImageList.SvgImageList digits;
+        private SvgImageList.SvgImageList leand;
         private FlowLayoutPanel mainLayout;
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
         private ZonedTimeClockControl.ZonedTimeClockControl local;
@@ -22,6 +23,7 @@ namespace WorldClock
         private double timeOffset;
 
         private bool doExit = false;
+        private bool oldSwagger;
 
 
         public MainForm()
@@ -29,6 +31,14 @@ namespace WorldClock
             InitializeComponent();
 
             configuration = new Configuration(registryHome);
+            oldSwagger = configuration.IncludeSwagger;
+
+            mainLayout = new FlowLayoutPanel();
+            mainLayout.Location = new Point(0, 30);
+            mainLayout.AutoSize = true;
+            mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            mainLayout.FlowDirection = FlowDirection.TopDown;
+            mainLayout.SizeChanged += MainLayout_SizeChanged;
 
             digits = new SvgImageList.SvgImageList();
             digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_0.svg")));
@@ -42,6 +52,18 @@ namespace WorldClock
             digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_8.svg")));
             digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_9.svg")));
 
+            leand = new SvgImageList.SvgImageList();
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_0.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_1.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_2.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_3.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_4.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_5.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_6.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_7.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_8.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_9.svg")));
+
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
             scrollbar.Minimum = -12;
             scrollbar.Maximum = 12;
@@ -49,7 +71,7 @@ namespace WorldClock
             scrollbar.OnValueChanged += Scrollbar_ValueChanged;
 
             local = new ZonedTimeClockControl.ZonedTimeClockControl();
-            local.SvgImageList = digits;
+            local.SvgImageList = configuration.IncludeSwagger ? leand : digits;
             local.Location = new Point(0, 0);
             local.AutoSize = true;
             local.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -93,6 +115,11 @@ namespace WorldClock
             if (settings.ShowDialog() == DialogResult.OK)
             {
                 Timer.Enabled = false;
+                if (oldSwagger != configuration.IncludeSwagger)
+                {
+                    local.SvgImageList = configuration.IncludeSwagger ? leand : digits;
+                    oldSwagger = configuration.IncludeSwagger;
+                }
                 SetupMainLayout();
                 Timer.Enabled = true;
             }
@@ -112,6 +139,7 @@ namespace WorldClock
         private void SetupMainLayout()
         {
             mainLayout.SuspendLayout();
+            scrollbar.Width = 20;
             local.InternationalTime = configuration.InternationalTime;
             local.ShowSeconds = configuration.IncludeSeconds;
             mainLayout.Controls.Clear();
@@ -122,7 +150,7 @@ namespace WorldClock
             foreach (String s in ids)
             {
                 ZonedTimeClockControl.ZonedTimeClockControl place = new ZonedTimeClockControl.ZonedTimeClockControl();
-                place.SvgImageList = digits;
+                place.SvgImageList = configuration.IncludeSwagger ? leand : digits;
                 place.Location = new Point(0, 0);
                 place.AutoSize = true;
                 place.AutoSizeMode = AutoSizeMode.GrowAndShrink;

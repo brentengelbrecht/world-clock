@@ -41,6 +41,7 @@ namespace WorldClock
 
             configuration.InternationalTime = CheckBox24Hour.Checked;
             configuration.IncludeSeconds = CheckBoxIncludeSeconds.Checked;
+            configuration.IncludeSwagger = CheckBoxSwagger.Checked;
 
             configuration.MinimizeOnClose = CheckBoxMinimize.Checked;
             configuration.MinimizeToStatusArea = CheckBoxStatusArea.Checked;
@@ -101,6 +102,7 @@ namespace WorldClock
         {
             CheckBox24Hour.Checked = configuration.InternationalTime;
             CheckBoxIncludeSeconds.Checked = configuration.IncludeSeconds;
+            CheckBoxSwagger.Checked = configuration.IncludeSwagger;
         }
 
         private void PopulateProgram()

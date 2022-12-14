@@ -39,39 +39,75 @@ namespace ZonedTimeClockControl
         {
             get
             {
-                return time;
+               return time;
             }
             set
             {
                 time = value;
-                //LabelTime.Text = time.ToString("HH:mm:ss");
-                String t = time.ToString("HH:mm:ss");
-                SvgImage.SvgImage s = svgImageList[Int16.Parse(t.Substring(0, 1))];
-                H1.Image = s.Draw(H1.Width, H1.Height);
-                s = svgImageList[Int16.Parse(t.Substring(1, 1))];
-                H2.Image = s.Draw(H1.Width, H1.Height);
-                s = svgImageList[Int16.Parse(t.Substring(3, 1))];
-                M1.Image = s.Draw(H1.Width, H1.Height);
-                s = svgImageList[Int16.Parse(t.Substring(4, 1))];
-                M2.Image = s.Draw(H1.Width, H1.Height);
-                s = svgImageList[Int16.Parse(t.Substring(6, 1))];
-                S1.Image = s.Draw(H1.Width, H1.Height);
-                s = svgImageList[Int16.Parse(t.Substring(7, 1))];
-                S2.Image = s.Draw(H1.Width, H1.Height);
+                String format = InternationalTime ? (ShowSeconds ? "HHmmss" : "HHmm") : (ShowSeconds ? "hhmmss" : "hhmm");
+                UpdateTime(time.ToString(format));
+            }
+        }
+
+        private bool showSeconds;
+        public bool ShowSeconds
+        {
+            get
+            {
+                return showSeconds;
+            }
+            set
+            {
+                showSeconds = value;
+                Configure();
             }
         }
 
         public bool InternationalTime { get; set; }
-        public bool ShowSeconds { get; set; }
 
         public ZonedTimeClockControl()
         {
             InitializeComponent();
+
+            DigitsPanel.AutoSize = true;
+            Configure();
         }
 
-        private void LabelTime_SizeChanged(object sender, EventArgs e)
+        private void Configure()
         {
-            ContentsResized?.Invoke(this, new ContentsResizedEventArgs(new Rectangle(Location.X, Location.Y, Size.Width, Size.Height)));
+            PictureBox p;
+            DigitsPanel.Controls.Clear();
+
+            for (int i = 0; i < 4; i++)
+            {
+                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+            }
+
+            if (ShowSeconds)
+            {
+                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+            }
+        }
+
+        private PictureBox BuildPictureBox(int Width, int Height)
+        {
+            PictureBox p = new PictureBox();
+            p.Width = Width;
+            p.Height = Height;
+            return p;
+        }
+
+        private void UpdateTime(String time)
+        {
+            for (int i = 0; i < time.Length; i++)
+            {
+                char c = time[i];
+                int j = c - 48;
+                SvgImage.SvgImage s = svgImageList[j];
+                Image d = s.Draw();
+                ((PictureBox)DigitsPanel.Controls[i]).Image = d;
+            }
         }
     }
 }

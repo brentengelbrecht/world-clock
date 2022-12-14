@@ -76,7 +76,8 @@ namespace WorldClock
             this.TextBoxInfo.ReadOnly = true;
             this.TextBoxInfo.Size = new System.Drawing.Size(227, 185);
             this.TextBoxInfo.TabIndex = 0;
-            this.TextBoxInfo.Text = "OPEN SOURCE SOFTWARE\r\n\r\nContributor/s:\r\nBrent Engelbrecht\r\n";
+            this.TextBoxInfo.Text = "OPEN SOURCE SOFTWARE\r\n\r\nUses Svg.NET components - https://github.com/svg-net/SVG\r" +
+    "\n\r\nContributor/s:\r\nBrent Engelbrecht";
             // 
             // LabelVersion
             // 
@@ -114,7 +115,6 @@ namespace WorldClock
             this.MinimizeBox = false;
             this.Name = "AboutForm";
             this.Text = "About";
-            this.Load += new System.EventHandler(this.AboutForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

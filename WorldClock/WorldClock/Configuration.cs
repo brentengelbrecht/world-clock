@@ -67,6 +67,21 @@ namespace WorldClock
             }
         }
 
+
+        private bool includeSwagger;
+        public bool IncludeSwagger
+        {
+            get
+            {
+                return includeSwagger;
+            }
+            set
+            {
+                includeSwagger = value;
+                isModified = true;
+            }
+        }
+
         private bool minimizeOnClose;
         public bool MinimizeOnClose
         {
@@ -156,6 +171,15 @@ namespace WorldClock
                         {
                             includeSeconds = true;
                         }
+
+                        try
+                        {
+                            includeSwagger = tz.GetValue("IncludeSwagger").Equals("True") ? true : false;
+                        }
+                        catch (Exception)
+                        {
+                            includeSwagger = false;
+                        }
                     }
 
                     using (var tz = hkcu.OpenSubKey(keyProgram))
@@ -223,6 +247,7 @@ namespace WorldClock
                     {
                         tz.SetValue("InternationalTime", internationalTime);
                         tz.SetValue("IncludeSeconds", includeSeconds);
+                        tz.SetValue("IncludeSwagger", includeSwagger);
                     }
 
                     hkcu.DeleteSubKey(keyProgram, false);
