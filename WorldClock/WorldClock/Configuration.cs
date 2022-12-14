@@ -9,6 +9,7 @@ namespace WorldClock
     {
         private String registryHome;
         private String keyTimezones;
+        private String keyDisplay;
         private const char delimiter = '-';
         private bool isModified = false;
         private ArrayList timezoneIds = new ArrayList();
@@ -17,6 +18,7 @@ namespace WorldClock
         {
             this.registryHome = RegistryHome;
             this.keyTimezones = registryHome + @"\Timezones";
+            this.keyDisplay = registryHome + @"\Display";
             Load();
         }
 
@@ -34,6 +36,34 @@ namespace WorldClock
         public ICollection GetTimezoneIds()
         {
             return new ArrayList(timezoneIds);
+        }
+
+        private bool internationalTime;
+        public bool InternationalTime
+         {
+            get
+            {
+                return internationalTime;
+            }
+            set
+            {
+                internationalTime = value;
+                isModified = true;
+            }
+        }
+
+        private bool includeSeconds;
+        public bool IncludeSeconds
+        {
+            get
+            {
+                return includeSeconds;
+            }
+            set
+            {
+                includeSeconds = value;
+                isModified = true;
+            }
         }
 
         public void Load()
@@ -62,6 +92,27 @@ namespace WorldClock
                         }
 
                         isModified = false;
+                    }
+
+                    using (var tz = hklm.OpenSubKey(keyDisplay))
+                    {
+                        try
+                        {
+                            internationalTime = tz.GetValue("InternationalTime").Equals("True") ? true : false;
+                        }
+                        catch (Exception)
+                        {
+                            internationalTime = true;
+                        }
+
+                        try
+                        {
+                            includeSeconds = tz.GetValue("IncludeSeconds").Equals("True") ? true : false;
+                        }
+                        catch (Exception)
+                        {
+                            includeSeconds = true;
+                        }
                     }
                 }
             }
@@ -92,6 +143,13 @@ namespace WorldClock
                                 tz.SetValue(String.Format("{0:D3}", i), timezoneIds[i]);
                             }
                         }
+                    }
+
+                    hklm.DeleteSubKey(keyDisplay, false);
+                    using (var tz = hklm.CreateSubKey(keyDisplay, true))
+                    {
+                        tz.SetValue("InternationalTime", internationalTime);
+                        tz.SetValue("IncludeSeconds", includeSeconds);
                     }
                 }
             }

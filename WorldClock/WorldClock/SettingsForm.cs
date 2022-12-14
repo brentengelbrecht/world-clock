@@ -24,6 +24,7 @@ namespace WorldClock
             zones = GetAllTimezones();
             PopulatePlaces();
             PopulateSelected();
+            PopulateDisplay();
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
@@ -34,6 +35,9 @@ namespace WorldClock
                 listToSave.Add(s);
             }
             configuration.SetTimezoneIds(listToSave);
+
+            configuration.InternationalTime = CheckBox24Hour.Checked;
+            configuration.IncludeSeconds = CheckBoxIncludeSeconds.Checked;
 
             configuration.Save();
             this.DialogResult = DialogResult.OK;
@@ -79,6 +83,12 @@ namespace WorldClock
                     }
                 }
             }
+        }
+
+        private void PopulateDisplay()
+        {
+            CheckBox24Hour.Checked = configuration.InternationalTime;
+            CheckBoxIncludeSeconds.Checked = configuration.IncludeSeconds;
         }
 
         private void TextBoxFilter_TextChanged(object sender, EventArgs e)
