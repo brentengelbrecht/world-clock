@@ -7,6 +7,8 @@ namespace WorldClock
 {
     public partial class SettingsForm : Form
     {
+        private const String StartupNode = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+
         private IReadOnlyCollection<TimeZoneInfo> zones;
         private Configuration configuration;
 
@@ -42,6 +44,12 @@ namespace WorldClock
 
             configuration.MinimizeOnClose = CheckBoxMinimize.Checked;
             configuration.MinimizeToStatusArea = CheckBoxStatusArea.Checked;
+
+            if (configuration.LaunchAtStartup != CheckBoxLaunch.Checked)
+            {
+                configuration.SetUserKeyValue(StartupNode, Application.ProductName, CheckBoxLaunch.Checked ? Application.ExecutablePath : null);
+                configuration.LaunchAtStartup = CheckBoxLaunch.Checked;
+            }
 
             configuration.Save();
             this.DialogResult = DialogResult.OK;
@@ -99,6 +107,7 @@ namespace WorldClock
         {
             CheckBoxMinimize.Checked = configuration.MinimizeOnClose;
             CheckBoxStatusArea.Checked = configuration.MinimizeToStatusArea;
+            CheckBoxLaunch.Checked = configuration.LaunchAtStartup;
         }
 
         private void TextBoxFilter_TextChanged(object sender, EventArgs e)

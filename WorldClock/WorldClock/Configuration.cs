@@ -95,6 +95,20 @@ namespace WorldClock
             }
         }
 
+        private bool launchAtStartup;
+        public bool LaunchAtStartup
+        {
+            get
+            {
+                return launchAtStartup;
+            }
+            set
+            {
+                launchAtStartup = value;
+                isModified = true;
+            }
+        }
+
         public void Load()
         {
             ArrayList newList = new ArrayList();
@@ -163,6 +177,15 @@ namespace WorldClock
                         {
                             minimizeToStatusArea = false;
                         }
+
+                        try
+                        {
+                            launchAtStartup = tz.GetValue("LaunchAtStartup").Equals("True") ? true : false;
+                        }
+                        catch (Exception)
+                        {
+                            launchAtStartup = false;
+                        }
                     }
                 }
             }
@@ -207,6 +230,32 @@ namespace WorldClock
                     {
                         tz.SetValue("MinimizeOnClose", minimizeOnClose);
                         tz.SetValue("MinimizeToStatusArea", minimizeToStatusArea);
+                        tz.SetValue("LaunchAtStartup", launchAtStartup);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void SetUserKeyValue(String Node, String Key, String Value)
+        {
+            try
+            {
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+                {
+                    using (var rk = hkcu.OpenSubKey(Node, true))
+                    {
+                        if (Value != null)
+                        {
+                            rk.SetValue(Key, Value);
+                        }
+                        else
+                        {
+                            rk.DeleteValue(Key, false);
+                        }
                     }
                 }
             }
