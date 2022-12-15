@@ -29,10 +29,22 @@ namespace DirectionalScrollerControl
 
     public delegate void ValueChangedHandler(object sender, ValueChangedEventArgs e);
 
-    public partial class DirectionalScrollerControl: Control
+    public partial class DirectionalScrollerControl : Control
     {
         private double oldValue = 0.0;
         private double value = 0.0;
+        public int Value
+        {
+            get
+            {
+                return (int)Math.Truncate(value);
+            }
+            set
+            {
+                this.value = value;
+            }
+        }
+
         private double percent = 0.0;
         private int minimum = -10;
         public int Minimum

@@ -16,7 +16,8 @@ namespace WorldClock
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
         private ZonedTimeClockControl.ZonedTimeClockControl local;
         private Timer timer;
-        private double timeOffset; 
+        private double timeOffset;
+
 
         public MainForm()
         {
@@ -24,10 +25,17 @@ namespace WorldClock
 
             configuration = new Configuration(registryHome);
 
+            mainLayout = new FlowLayoutPanel();
+            mainLayout.Location = new Point(0, 30);
+            mainLayout.AutoSize = true;
+            mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            mainLayout.FlowDirection = FlowDirection.TopDown;
+            mainLayout.SizeChanged += MainLayout_SizeChanged;
+
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
             scrollbar.Minimum = -12;
             scrollbar.Maximum = 12;
-            scrollbar.Width = ClientSize.Width;
+            scrollbar.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             scrollbar.OnValueChanged += Scrollbar_ValueChanged;
 
             local = new ZonedTimeClockControl.ZonedTimeClockControl();
@@ -35,12 +43,8 @@ namespace WorldClock
             local.AutoSize = true;
             local.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             local.Place = localName;
-
-            mainLayout = new FlowLayoutPanel();
-            mainLayout.Location = new Point(0, 30);
-            mainLayout.AutoSize = true;
-            mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            mainLayout.FlowDirection = FlowDirection.TopDown;
+            local.InternationalTime = configuration.InternationalTime;
+            local.ShowSeconds = configuration.IncludeSeconds;
 
             this.Controls.Add(mainLayout);
 
@@ -52,6 +56,12 @@ namespace WorldClock
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
+        }
+
+        private void MainLayout_SizeChanged(object sender, EventArgs e)
+        {
+            scrollbar.Invalidate();
+            scrollbar.Update();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,6 +93,9 @@ namespace WorldClock
 
         private void SetupMainLayout()
         {
+            mainLayout.SuspendLayout();
+            local.InternationalTime = configuration.InternationalTime;
+            local.ShowSeconds = configuration.IncludeSeconds;
             mainLayout.Controls.Clear();
             mainLayout.Controls.Add(scrollbar);
             mainLayout.Controls.Add(local);
@@ -95,8 +108,12 @@ namespace WorldClock
                 place.AutoSize = true;
                 place.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 place.Place = s;
+                place.InternationalTime = configuration.InternationalTime;
+                place.ShowSeconds = configuration.IncludeSeconds;
                 mainLayout.Controls.Add(place);
             }
+            mainLayout.Invalidate();
+            mainLayout.ResumeLayout();
         }
 
         private void UpdateTimes()
@@ -133,9 +150,9 @@ namespace WorldClock
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (scrollbar != null)
+            if (mainLayout != null)
             {
-                scrollbar.Width = ((Form)sender).ClientSize.Width - 9;
+                mainLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
             }
         }
     }
