@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Microsoft.Win32;
 
 namespace WorldClock
@@ -10,6 +9,7 @@ namespace WorldClock
         private String registryHome;
         private String keyTimezones;
         private String keyDisplay;
+        private String keyProgram;
         private const char delimiter = '-';
         private bool isModified = false;
         private ArrayList timezoneIds = new ArrayList();
@@ -19,6 +19,7 @@ namespace WorldClock
             this.registryHome = RegistryHome;
             this.keyTimezones = registryHome + @"\Timezones";
             this.keyDisplay = registryHome + @"\Display";
+            this.keyProgram = registryHome + @"\Program";
             Load();
         }
 
@@ -62,6 +63,20 @@ namespace WorldClock
             set
             {
                 includeSeconds = value;
+                isModified = true;
+            }
+        }
+
+        private bool minimizeOnClose;
+        public bool MinimizeOnClose
+        {
+            get
+            {
+                return minimizeOnClose;
+            }
+            set
+            {
+                minimizeOnClose = value;
                 isModified = true;
             }
         }
@@ -114,6 +129,18 @@ namespace WorldClock
                             includeSeconds = true;
                         }
                     }
+
+                    using (var tz = hklm.OpenSubKey(keyProgram))
+                    {
+                        try
+                        {
+                            minimizeOnClose = tz.GetValue("MinimizeOnClose").Equals("True") ? true : false;
+                        }
+                        catch (Exception)
+                        {
+                            minimizeOnClose = false;
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -150,6 +177,12 @@ namespace WorldClock
                     {
                         tz.SetValue("InternationalTime", internationalTime);
                         tz.SetValue("IncludeSeconds", includeSeconds);
+                    }
+
+                    hklm.DeleteSubKey(keyProgram, false);
+                    using (var tz = hklm.CreateSubKey(keyProgram, true))
+                    {
+                        tz.SetValue("MinimizeOnClose", minimizeOnClose);
                     }
                 }
             }

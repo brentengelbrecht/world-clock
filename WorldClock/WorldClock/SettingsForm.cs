@@ -25,6 +25,7 @@ namespace WorldClock
             PopulatePlaces();
             PopulateSelected();
             PopulateDisplay();
+            PopulateProgram();
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
@@ -38,6 +39,8 @@ namespace WorldClock
 
             configuration.InternationalTime = CheckBox24Hour.Checked;
             configuration.IncludeSeconds = CheckBoxIncludeSeconds.Checked;
+
+            configuration.MinimizeOnClose = CheckBoxMinimize.Checked;
 
             configuration.Save();
             this.DialogResult = DialogResult.OK;
@@ -89,6 +92,11 @@ namespace WorldClock
         {
             CheckBox24Hour.Checked = configuration.InternationalTime;
             CheckBoxIncludeSeconds.Checked = configuration.IncludeSeconds;
+        }
+
+        private void PopulateProgram()
+        {
+            CheckBoxMinimize.Checked = configuration.MinimizeOnClose;
         }
 
         private void TextBoxFilter_TextChanged(object sender, EventArgs e)

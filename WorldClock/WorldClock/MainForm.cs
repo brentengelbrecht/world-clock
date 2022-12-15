@@ -18,6 +18,8 @@ namespace WorldClock
         private Timer timer;
         private double timeOffset;
 
+        private bool doMinimize = false;
+
 
         public MainForm()
         {
@@ -66,6 +68,7 @@ namespace WorldClock
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            doMinimize = false;
             Close();
         }
 
@@ -76,6 +79,7 @@ namespace WorldClock
             {
                 Timer.Enabled = false;
                 SetupMainLayout();
+                doMinimize = configuration.MinimizeOnClose;
                 Timer.Enabled = true;
             }
         }
@@ -153,6 +157,15 @@ namespace WorldClock
             if (mainLayout != null)
             {
                 mainLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (doMinimize)
+            {
+                e.Cancel = true;
+                WindowState = FormWindowState.Minimized;
             }
         }
     }
