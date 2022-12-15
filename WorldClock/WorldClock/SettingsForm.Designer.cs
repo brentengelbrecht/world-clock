@@ -40,20 +40,20 @@ namespace WorldClock
             this.ListBoxPlaces = new System.Windows.Forms.ListBox();
             this.ListBoxSelected = new System.Windows.Forms.ListBox();
             this.TabPageAppearance = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CheckBoxStatusArea = new System.Windows.Forms.CheckBox();
+            this.CheckBoxMinimize = new System.Windows.Forms.CheckBox();
+            this.CheckBoxLaunch = new System.Windows.Forms.CheckBox();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.CheckBoxIncludeSeconds = new System.Windows.Forms.CheckBox();
             this.CheckBox24Hour = new System.Windows.Forms.CheckBox();
             this.ButtonOk = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.CheckBoxLaunch = new System.Windows.Forms.CheckBox();
-            this.CheckBoxMinimize = new System.Windows.Forms.CheckBox();
-            this.CheckBoxStatusArea = new System.Windows.Forms.CheckBox();
             this.TabControl.SuspendLayout();
             this.TabPageTimezones.SuspendLayout();
             this.TabPageAppearance.SuspendLayout();
-            this.GroupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.GroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl
@@ -183,6 +183,53 @@ namespace WorldClock
             this.TabPageAppearance.Text = "Appearance";
             this.TabPageAppearance.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.CheckBoxStatusArea);
+            this.groupBox2.Controls.Add(this.CheckBoxMinimize);
+            this.groupBox2.Controls.Add(this.CheckBoxLaunch);
+            this.groupBox2.Location = new System.Drawing.Point(439, 25);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(365, 277);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Program";
+            // 
+            // CheckBoxStatusArea
+            // 
+            this.CheckBoxStatusArea.AutoSize = true;
+            this.CheckBoxStatusArea.Location = new System.Drawing.Point(33, 94);
+            this.CheckBoxStatusArea.Margin = new System.Windows.Forms.Padding(4);
+            this.CheckBoxStatusArea.Name = "CheckBoxStatusArea";
+            this.CheckBoxStatusArea.Size = new System.Drawing.Size(229, 26);
+            this.CheckBoxStatusArea.TabIndex = 2;
+            this.CheckBoxStatusArea.Text = "Minimize to System Tray";
+            this.CheckBoxStatusArea.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxMinimize
+            // 
+            this.CheckBoxMinimize.AutoSize = true;
+            this.CheckBoxMinimize.Location = new System.Drawing.Point(33, 65);
+            this.CheckBoxMinimize.Margin = new System.Windows.Forms.Padding(4);
+            this.CheckBoxMinimize.Name = "CheckBoxMinimize";
+            this.CheckBoxMinimize.Size = new System.Drawing.Size(143, 21);
+            this.CheckBoxMinimize.TabIndex = 1;
+            this.CheckBoxMinimize.Text = "Minimize on Close";
+            this.CheckBoxMinimize.UseVisualStyleBackColor = true;
+            // 
+            // CheckBoxLaunch
+            // 
+            this.CheckBoxLaunch.AutoSize = true;
+            this.CheckBoxLaunch.Location = new System.Drawing.Point(33, 36);
+            this.CheckBoxLaunch.Margin = new System.Windows.Forms.Padding(4);
+            this.CheckBoxLaunch.Name = "CheckBoxLaunch";
+            this.CheckBoxLaunch.Size = new System.Drawing.Size(185, 21);
+            this.CheckBoxLaunch.TabIndex = 0;
+            this.CheckBoxLaunch.Text = "Launch at Windows start";
+            this.CheckBoxLaunch.UseVisualStyleBackColor = true;
+            // 
             // GroupBox1
             // 
             this.GroupBox1.Controls.Add(this.CheckBoxIncludeSeconds);
@@ -245,53 +292,6 @@ namespace WorldClock
             this.ButtonCancel.UseVisualStyleBackColor = true;
             this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.CheckBoxStatusArea);
-            this.groupBox2.Controls.Add(this.CheckBoxMinimize);
-            this.groupBox2.Controls.Add(this.CheckBoxLaunch);
-            this.groupBox2.Location = new System.Drawing.Point(439, 25);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(365, 277);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Program";
-            // 
-            // CheckBoxLaunch
-            // 
-            this.CheckBoxLaunch.AutoSize = true;
-            this.CheckBoxLaunch.Location = new System.Drawing.Point(33, 36);
-            this.CheckBoxLaunch.Margin = new System.Windows.Forms.Padding(4);
-            this.CheckBoxLaunch.Name = "CheckBoxLaunch";
-            this.CheckBoxLaunch.Size = new System.Drawing.Size(185, 21);
-            this.CheckBoxLaunch.TabIndex = 0;
-            this.CheckBoxLaunch.Text = "Launch at Windows start";
-            this.CheckBoxLaunch.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxMinimize
-            // 
-            this.CheckBoxMinimize.AutoSize = true;
-            this.CheckBoxMinimize.Location = new System.Drawing.Point(33, 65);
-            this.CheckBoxMinimize.Margin = new System.Windows.Forms.Padding(4);
-            this.CheckBoxMinimize.Name = "CheckBoxMinimize";
-            this.CheckBoxMinimize.Size = new System.Drawing.Size(143, 21);
-            this.CheckBoxMinimize.TabIndex = 1;
-            this.CheckBoxMinimize.Text = "Minimize on Close";
-            this.CheckBoxMinimize.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxStatusArea
-            // 
-            this.CheckBoxStatusArea.AutoSize = true;
-            this.CheckBoxStatusArea.Location = new System.Drawing.Point(33, 94);
-            this.CheckBoxStatusArea.Margin = new System.Windows.Forms.Padding(4);
-            this.CheckBoxStatusArea.Name = "CheckBoxStatusArea";
-            this.CheckBoxStatusArea.Size = new System.Drawing.Size(223, 26);
-            this.CheckBoxStatusArea.TabIndex = 2;
-            this.CheckBoxStatusArea.Text = "Minimize to Status Area";
-            this.CheckBoxStatusArea.UseVisualStyleBackColor = true;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -314,10 +314,10 @@ namespace WorldClock
             this.TabPageTimezones.ResumeLayout(false);
             this.TabPageTimezones.PerformLayout();
             this.TabPageAppearance.ResumeLayout(false);
-            this.GroupBox1.ResumeLayout(false);
-            this.GroupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.GroupBox1.ResumeLayout(false);
+            this.GroupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }

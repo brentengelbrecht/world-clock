@@ -41,6 +41,7 @@ namespace WorldClock
             configuration.IncludeSeconds = CheckBoxIncludeSeconds.Checked;
 
             configuration.MinimizeOnClose = CheckBoxMinimize.Checked;
+            configuration.MinimizeToStatusArea = CheckBoxStatusArea.Checked;
 
             configuration.Save();
             this.DialogResult = DialogResult.OK;
@@ -97,6 +98,7 @@ namespace WorldClock
         private void PopulateProgram()
         {
             CheckBoxMinimize.Checked = configuration.MinimizeOnClose;
+            CheckBoxStatusArea.Checked = configuration.MinimizeToStatusArea;
         }
 
         private void TextBoxFilter_TextChanged(object sender, EventArgs e)

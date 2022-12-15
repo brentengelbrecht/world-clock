@@ -81,6 +81,20 @@ namespace WorldClock
             }
         }
 
+        private bool minimizeToStatusArea;
+        public bool MinimizeToStatusArea
+        {
+            get
+            {
+                return minimizeToStatusArea;
+            }
+            set
+            {
+                minimizeToStatusArea = value;
+                isModified = true;
+            }
+        }
+
         public void Load()
         {
             ArrayList newList = new ArrayList();
@@ -140,6 +154,15 @@ namespace WorldClock
                         {
                             minimizeOnClose = false;
                         }
+
+                        try
+                        {
+                            minimizeToStatusArea = tz.GetValue("MinimizeToStatusArea").Equals("True") ? true : false;
+                        }
+                        catch (Exception)
+                        {
+                            minimizeToStatusArea = false;
+                        }
                     }
                 }
             }
@@ -183,6 +206,7 @@ namespace WorldClock
                     using (var tz = hklm.CreateSubKey(keyProgram, true))
                     {
                         tz.SetValue("MinimizeOnClose", minimizeOnClose);
+                        tz.SetValue("MinimizeToStatusArea", minimizeToStatusArea);
                     }
                 }
             }

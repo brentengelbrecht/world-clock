@@ -18,7 +18,7 @@ namespace WorldClock
         private Timer timer;
         private double timeOffset;
 
-        private bool doMinimize = false;
+        private bool doExit = false;
 
 
         public MainForm()
@@ -68,7 +68,7 @@ namespace WorldClock
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            doMinimize = false;
+            doExit = true;
             Close();
         }
 
@@ -79,7 +79,6 @@ namespace WorldClock
             {
                 Timer.Enabled = false;
                 SetupMainLayout();
-                doMinimize = configuration.MinimizeOnClose;
                 Timer.Enabled = true;
             }
         }
@@ -162,11 +161,29 @@ namespace WorldClock
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (doMinimize)
+            if (!doExit)
             {
-                e.Cancel = true;
-                WindowState = FormWindowState.Minimized;
+                if (configuration.MinimizeToStatusArea && e.CloseReason == CloseReason.UserClosing)
+                {
+                    timer.Enabled = false;
+                    NotifyIcon.Visible = true;
+                    this.Hide();
+                    e.Cancel = true;
+                }
+
+                if (configuration.MinimizeOnClose && e.CloseReason == CloseReason.UserClosing)
+                {
+                    WindowState = FormWindowState.Minimized;
+                    e.Cancel = true;
+                }
             }
+        }
+
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Timer.Enabled = true;
+            WindowState = FormWindowState.Normal;
+            this.Show();
         }
     }
 }
