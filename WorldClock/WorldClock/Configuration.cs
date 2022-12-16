@@ -115,9 +115,9 @@ namespace WorldClock
 
             try
             {
-                using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                 {
-                    using (var tz = hklm.OpenSubKey(keyTimezones))
+                    using (var tz = hkcu.OpenSubKey(keyTimezones))
                     {
                         if (tz != null)
                         {
@@ -137,7 +137,7 @@ namespace WorldClock
                         isModified = false;
                     }
 
-                    using (var tz = hklm.OpenSubKey(keyDisplay))
+                    using (var tz = hkcu.OpenSubKey(keyDisplay))
                     {
                         try
                         {
@@ -158,7 +158,7 @@ namespace WorldClock
                         }
                     }
 
-                    using (var tz = hklm.OpenSubKey(keyProgram))
+                    using (var tz = hkcu.OpenSubKey(keyProgram))
                     {
                         try
                         {
@@ -204,10 +204,10 @@ namespace WorldClock
 
             try
             {
-                using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                 {
-                    hklm.DeleteSubKey(keyTimezones, false);
-                    using (var tz = hklm.CreateSubKey(keyTimezones, true))
+                    hkcu.DeleteSubKey(keyTimezones, false);
+                    using (var tz = hkcu.CreateSubKey(keyTimezones, true))
                     {
                         if (tz != null)
                         {
@@ -218,15 +218,15 @@ namespace WorldClock
                         }
                     }
 
-                    hklm.DeleteSubKey(keyDisplay, false);
-                    using (var tz = hklm.CreateSubKey(keyDisplay, true))
+                    hkcu.DeleteSubKey(keyDisplay, false);
+                    using (var tz = hkcu.CreateSubKey(keyDisplay, true))
                     {
                         tz.SetValue("InternationalTime", internationalTime);
                         tz.SetValue("IncludeSeconds", includeSeconds);
                     }
 
-                    hklm.DeleteSubKey(keyProgram, false);
-                    using (var tz = hklm.CreateSubKey(keyProgram, true))
+                    hkcu.DeleteSubKey(keyProgram, false);
+                    using (var tz = hkcu.CreateSubKey(keyProgram, true))
                     {
                         tz.SetValue("MinimizeOnClose", minimizeOnClose);
                         tz.SetValue("MinimizeToStatusArea", minimizeToStatusArea);
