@@ -185,5 +185,11 @@ namespace WorldClock
             WindowState = FormWindowState.Normal;
             this.Show();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm about = new AboutForm();
+            about.Show();
+        }
     }
 }
