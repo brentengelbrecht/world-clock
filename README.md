@@ -18,4 +18,4 @@ World Clock is a Windows desktop app that can quickly show the same time in diff
 ## Inspired by
 
 1. A work conversation where we tried to set a suitable meeting time with colleagues in India
-2. Some old code that I wrote a long time ago
+2. Some old code that I wrote a long time ago [https://github.com/Zooloo2014/celestial-component-library]
