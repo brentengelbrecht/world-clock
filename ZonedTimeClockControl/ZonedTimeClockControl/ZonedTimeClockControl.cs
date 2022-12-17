@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -44,7 +45,7 @@ namespace ZonedTimeClockControl
             set
             {
                 time = value;
-                String format = InternationalTime ? (ShowSeconds ? "HHmmss" : "HHmm") : (ShowSeconds ? "hhmmss" : "hhmm");
+                String format = InternationalTime ? (ShowSeconds ? "HHmmss" : "HHmm") : (ShowSeconds ? "hhmmsst" : "hhmmt");
                 UpdateTime(time.ToString(format));
             }
         }
@@ -75,7 +76,6 @@ namespace ZonedTimeClockControl
 
         private void Configure()
         {
-            PictureBox p;
             DigitsPanel.Controls.Clear();
 
             for (int i = 0; i < 4; i++)
@@ -86,6 +86,11 @@ namespace ZonedTimeClockControl
             if (ShowSeconds)
             {
                 DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+            }
+
+            if (!InternationalTime)
+            {
                 DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
             }
         }
@@ -100,11 +105,26 @@ namespace ZonedTimeClockControl
 
         private void UpdateTime(String time)
         {
+            SvgImage.SvgImage s;
+
             for (int i = 0; i < time.Length; i++)
             {
                 char c = time[i];
-                int j = c - 48;
-                SvgImage.SvgImage s = svgImageList[j];
+                int j = 0;
+
+                if (c == 'a')
+                {
+                    j = 10;
+                } else if (c == 'p')
+                {
+                    j = 11;
+                }
+                else
+                {
+                    j = c - 48;
+                }
+
+                s = svgImageList[j];
                 Image d = s.Draw();
                 ((PictureBox)DigitsPanel.Controls[i]).Image = d;
             }
