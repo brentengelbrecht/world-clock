@@ -53,6 +53,8 @@ namespace WorldClock
             digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_9.svg")));
             digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_a.svg")));
             digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_p.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_c.svg")));
+            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_spc.svg")));
 
             leand = new SvgImageList.SvgImageList();
             leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_0.svg")));
@@ -67,6 +69,8 @@ namespace WorldClock
             leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_9.svg")));
             leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_a.svg")));
             leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_p.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_c.svg")));
+            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_spc.svg")));
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
             scrollbar.Minimum = -12;

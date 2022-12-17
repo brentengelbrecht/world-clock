@@ -142,6 +142,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="lean_spc.svg" />
+    <EmbeddedResource Include="lean_c.svg" />
     <EmbeddedResource Include="lean_a.svg" />
     <EmbeddedResource Include="lean_p.svg" />
     <EmbeddedResource Include="lean_0.svg" />
@@ -154,7 +156,6 @@
     <EmbeddedResource Include="lean_7.svg" />
     <EmbeddedResource Include="lean_8.svg" />
     <EmbeddedResource Include="lean_9.svg" />
-    <EmbeddedResource Include="lean_sep.svg" />
     <EmbeddedResource Include="digit_0.svg" />
     <EmbeddedResource Include="digit_1.svg" />
     <EmbeddedResource Include="digit_2.svg" />
@@ -167,6 +168,8 @@
     <EmbeddedResource Include="digit_9.svg" />
     <EmbeddedResource Include="digit_a.svg" />
     <EmbeddedResource Include="digit_p.svg" />
+    <EmbeddedResource Include="digit_c.svg" />
+    <EmbeddedResource Include="digit_spc.svg" />
     <Content Include="globe-clock.ico" />
   </ItemGroup>
   <ItemGroup>

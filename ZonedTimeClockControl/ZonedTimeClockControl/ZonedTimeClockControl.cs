@@ -45,7 +45,7 @@ namespace ZonedTimeClockControl
             set
             {
                 time = value;
-                String format = InternationalTime ? (ShowSeconds ? "HHmmss" : "HHmm") : (ShowSeconds ? "hhmmsst" : "hhmmt");
+                String format = InternationalTime ? (ShowSeconds ? "HH:mm:ss" : "HH:mm") : (ShowSeconds ? "hh:mm:sst" : "hh:mmt");
                 UpdateTime(time.ToString(format));
             }
         }
@@ -76,22 +76,37 @@ namespace ZonedTimeClockControl
 
         private void Configure()
         {
+            const int digitWidth = 70;
+            const int digitHeight = 95;
+            const int colonWidth = 18;
+            const int colonHeight = 95;
+
             DigitsPanel.Controls.Clear();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
-                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+                int w = digitWidth;
+                int h = digitHeight;
+
+                if (i == 2)
+                {
+                    w = colonWidth;
+                    h = colonHeight;
+                }
+
+                DigitsPanel.Controls.Add(BuildPictureBox(w, h));
             }
 
             if (ShowSeconds)
             {
-                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
-                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+                DigitsPanel.Controls.Add(BuildPictureBox(colonWidth, digitHeight));
+                DigitsPanel.Controls.Add(BuildPictureBox(digitWidth, digitHeight));
+                DigitsPanel.Controls.Add(BuildPictureBox(digitWidth, digitHeight));
             }
 
             if (!InternationalTime)
             {
-                DigitsPanel.Controls.Add(BuildPictureBox(70, 95));
+                DigitsPanel.Controls.Add(BuildPictureBox(digitWidth, digitHeight));
             }
         }
 
@@ -115,13 +130,23 @@ namespace ZonedTimeClockControl
                 if (c == 'a')
                 {
                     j = 10;
-                } else if (c == 'p')
+                } 
+                else if (c == 'p')
                 {
                     j = 11;
+                } 
+                else if (c == ':')
+                {
+                    j = 12;
                 }
                 else
                 {
                     j = c - 48;
+                }
+
+                if (i == 0 && c == '0' && !InternationalTime)
+                {
+                    j = 13;
                 }
 
                 s = svgImageList[j];
