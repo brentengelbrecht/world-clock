@@ -28,59 +28,53 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.MainLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.PlaceLabel = new System.Windows.Forms.Label();
-            this.LabelTime = new System.Windows.Forms.Label();
-            this.Layout.SuspendLayout();
+            this.DigitsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.MainLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Layout
+            // MainLayout
             // 
-            this.Layout.AutoSize = true;
-            this.Layout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Layout.Controls.Add(this.PlaceLabel);
-            this.Layout.Controls.Add(this.LabelTime);
-            this.Layout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.Layout.Location = new System.Drawing.Point(0, 0);
-            this.Layout.Margin = new System.Windows.Forms.Padding(4);
-            this.Layout.Name = "Layout";
-            this.Layout.Size = new System.Drawing.Size(303, 93);
-            this.Layout.TabIndex = 0;
+            this.MainLayout.AutoSize = true;
+            this.MainLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.MainLayout.Controls.Add(this.PlaceLabel);
+            this.MainLayout.Controls.Add(this.DigitsPanel);
+            this.MainLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.MainLayout.Name = "MainLayout";
+            this.MainLayout.Size = new System.Drawing.Size(448, 116);
+            this.MainLayout.TabIndex = 0;
             // 
             // PlaceLabel
             // 
             this.PlaceLabel.AutoSize = true;
-            this.PlaceLabel.Location = new System.Drawing.Point(4, 0);
-            this.PlaceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.PlaceLabel.Location = new System.Drawing.Point(3, 0);
             this.PlaceLabel.Name = "PlaceLabel";
-            this.PlaceLabel.Size = new System.Drawing.Size(46, 17);
+            this.PlaceLabel.Size = new System.Drawing.Size(35, 13);
             this.PlaceLabel.TabIndex = 0;
             this.PlaceLabel.Text = "label1";
             // 
-            // LabelTime
+            // DigitsPanel
             // 
-            this.LabelTime.AutoSize = true;
-            this.LabelTime.Font = new System.Drawing.Font("DS-Digital", 46F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTime.Location = new System.Drawing.Point(4, 17);
-            this.LabelTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LabelTime.Name = "LabelTime";
-            this.LabelTime.Size = new System.Drawing.Size(295, 76);
-            this.LabelTime.TabIndex = 1;
-            this.LabelTime.Text = "00:00:00";
-            this.LabelTime.SizeChanged += new System.EventHandler(this.LabelTime_SizeChanged);
+            this.DigitsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DigitsPanel.Location = new System.Drawing.Point(2, 15);
+            this.DigitsPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.DigitsPanel.Name = "DigitsPanel";
+            this.DigitsPanel.Size = new System.Drawing.Size(444, 99);
+            this.DigitsPanel.TabIndex = 1;
             // 
             // ZonedTimeClockControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.Layout);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Controls.Add(this.MainLayout);
             this.Name = "ZonedTimeClockControl";
-            this.Size = new System.Drawing.Size(307, 97);
-            this.Layout.ResumeLayout(false);
-            this.Layout.PerformLayout();
+            this.Size = new System.Drawing.Size(451, 119);
+            this.MainLayout.ResumeLayout(false);
+            this.MainLayout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,8 +82,8 @@
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel Layout;
+        private System.Windows.Forms.FlowLayoutPanel MainLayout;
         private System.Windows.Forms.Label PlaceLabel;
-        private System.Windows.Forms.Label LabelTime;
+        private System.Windows.Forms.FlowLayoutPanel DigitsPanel;
     }
 }
