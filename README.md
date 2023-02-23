@@ -7,7 +7,7 @@
 
 World Clock is a Windows desktop app that can quickly show the same time in different timezones
 
-![image](https://user-images.githubusercontent.com/72200979/208251642-bb0166f4-a5e0-46fa-86b0-4a48a4fe3498.png)
+![Animation](https://user-images.githubusercontent.com/72200979/220906835-63caefdc-0c66-41f9-abe9-673ee755e475.gif)
 
 ## Built with
 
