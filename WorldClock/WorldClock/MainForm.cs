@@ -197,24 +197,19 @@ namespace WorldClock
                 dt = dt.AddHours(hours).AddMinutes(minutes);
             }
 
-            for (int i = 0; i < clocksLayout.Controls.Count; i++)
+            foreach (Control ctrl in clocksLayout.Controls)
             {
-                Control ctrl = clocksLayout.Controls[i];
-                if (ctrl is ZonedTimeClockControl.ZonedTimeClockControl)
+                ZonedTimeClockControl.ZonedTimeClockControl next = (ZonedTimeClockControl.ZonedTimeClockControl)ctrl;
+                if (next.Place == local.Place)
                 {
-                    ZonedTimeClockControl.ZonedTimeClockControl next = (ZonedTimeClockControl.ZonedTimeClockControl)ctrl;
-                    if (next.Place == localName)
-                    {
-                        TimeZoneInfo tzLocal = TimeZoneInfo.Local;
-                        local.Time = dt;
-                    }
-                    else
-                    {
-                        TimeZoneInfo tzNext = TimeZoneInfo.FindSystemTimeZoneById(next.Place);
-                        TimeSpan ts = tzNext.BaseUtcOffset;
-                        DateTime nextTime = dt.AddHours(ts.Hours).AddMinutes(ts.Minutes);
-                        next.Time = nextTime;
-                    }
+                    local.Time = dt;
+                }
+                else
+                {
+                    TimeZoneInfo tzNext = TimeZoneInfo.FindSystemTimeZoneById(next.Place);
+                    TimeSpan ts = tzNext.BaseUtcOffset;
+                    DateTime nextTime = dt.AddHours(ts.Hours).AddMinutes(ts.Minutes);
+                    next.Time = nextTime;
                 }
             }
         }
