@@ -37,14 +37,14 @@ namespace WorldClock
             oldSwagger = configuration.IncludeSwagger;
 
             mainLayout = new FlowLayoutPanel();
-            mainLayout.Location = new Point(0, 0);
+            mainLayout.Location = new Point(0, 30);
             mainLayout.AutoSize = true;
             mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mainLayout.FlowDirection = FlowDirection.TopDown;
             Controls.Add(mainLayout);
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
-            scrollbar.Height = 40;
+            scrollbar.Height = 24;
             scrollbar.Width = mainLayout.ClientRectangle.Width;
             scrollbar.Minimum = -12;
             scrollbar.Maximum = 12;
