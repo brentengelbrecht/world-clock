@@ -55,6 +55,8 @@ namespace WorldClock
             clocksLayout = new FlowLayoutPanel();
             clocksLayout.Location = new Point(0, 30);
             clocksLayout.AutoSize = true;
+            clocksLayout.AutoScroll = true;
+            clocksLayout.WrapContents = false;
             clocksLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             clocksLayout.FlowDirection = FlowDirection.TopDown;
             clocksLayout.SizeChanged += ClocksLayout_SizeChanged;
@@ -96,14 +98,7 @@ namespace WorldClock
             leand.Add(new SvgImage.SvgImage(GetResource("lean_c.svg")));
             leand.Add(new SvgImage.SvgImage(GetResource("lean_spc.svg")));
 
-            local = new ZonedTimeClockControl.ZonedTimeClockControl();
-            local.SvgImageList = configuration.IncludeSwagger ? leand : digits;
-            local.Location = new Point(0, 0);
-            local.AutoSize = true;
-            local.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            local.Place = localName;
-            local.InternationalTime = configuration.InternationalTime;
-            local.ShowSeconds = configuration.IncludeSeconds;
+            local = createClock(localName, configuration);
 
             SetupClocksLayout();
 
@@ -167,24 +162,32 @@ namespace WorldClock
             local.InternationalTime = configuration.InternationalTime;
             local.ShowSeconds = configuration.IncludeSeconds;
             clocksLayout.Controls.Clear();
-            clocksLayout.Controls.Add(scrollbar);
             clocksLayout.Controls.Add(local);
 
             ArrayList ids = (ArrayList)configuration.GetTimezoneIds();
             foreach (String s in ids)
             {
-                ZonedTimeClockControl.ZonedTimeClockControl place = new ZonedTimeClockControl.ZonedTimeClockControl();
-                place.SvgImageList = configuration.IncludeSwagger ? leand : digits;
-                place.Location = new Point(0, 0);
-                place.AutoSize = true;
-                place.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                place.Place = s;
-                place.InternationalTime = configuration.InternationalTime;
-                place.ShowSeconds = configuration.IncludeSeconds;
+                ZonedTimeClockControl.ZonedTimeClockControl place = createClock(s, configuration);
                 clocksLayout.Controls.Add(place);
             }
+
             clocksLayout.Invalidate();
             clocksLayout.ResumeLayout();
+        }
+
+        private ZonedTimeClockControl.ZonedTimeClockControl createClock(String name, Configuration config)
+        {
+            ZonedTimeClockControl.ZonedTimeClockControl clock = new ZonedTimeClockControl.ZonedTimeClockControl();
+
+            clock.SvgImageList = config.IncludeSwagger ? leand : digits;
+            clock.Location = new Point(0, 0);
+            clock.AutoSize = true;
+            clock.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            clock.Place = name;
+            clock.InternationalTime = config.InternationalTime;
+            clock.ShowSeconds = config.IncludeSeconds;
+
+            return clock;
         }
 
         private void UpdateTimes()
