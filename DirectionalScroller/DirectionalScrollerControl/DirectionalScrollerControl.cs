@@ -10,24 +10,7 @@ using System.Windows.Forms.VisualStyles;
 
 namespace DirectionalScrollerControl
 {
-    public class ValueChangedEventArgs : EventArgs
-    {
-        private double value;
-        public double Value
-        {
-            get
-            {
-                return this.value;
-            }
-        }
-
-        public ValueChangedEventArgs(double value)
-        {
-            this.value = value;
-        }
-    }
-
-    public delegate void ValueChangedHandler(object sender, ValueChangedEventArgs e);
+   public delegate void ValueChangedHandler(object sender, ValueChangedEventArgs e);
 
     public partial class DirectionalScrollerControl : Control
     {
@@ -402,6 +385,22 @@ namespace DirectionalScrollerControl
             }
 
             Invalidate();
+        }
+    }
+
+    public class ValueChangedEventArgs : EventArgs
+    {
+        private double value;
+        public double Value
+        {
+            get
+            {
+                return this.value;
+            }
+        }
+        public ValueChangedEventArgs(double value)
+        {
+            this.value = value;
         }
     }
 }
