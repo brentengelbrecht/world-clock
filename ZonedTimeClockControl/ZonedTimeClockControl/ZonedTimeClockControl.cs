@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,8 +6,6 @@ namespace ZonedTimeClockControl
 {
     public partial class ZonedTimeClockControl: UserControl
     {
-        public ContentsResizedEventHandler ContentsResized;
-
         private SvgImageList.SvgImageList svgImageList;
         public SvgImageList.SvgImageList SvgImageList
         {
@@ -45,8 +42,7 @@ namespace ZonedTimeClockControl
             set
             {
                 time = value;
-                String format = InternationalTime ? (ShowSeconds ? "HH:mm:ss" : "HH:mm") : (ShowSeconds ? "hh:mm:sst" : "hh:mmt");
-                UpdateTime(time.ToString(format));
+                UpdateTime(time);
             }
         }
 
@@ -118,9 +114,12 @@ namespace ZonedTimeClockControl
             return p;
         }
 
-        private void UpdateTime(String time)
+        private void UpdateTime(DateTime inputTime)
         {
             SvgImage.SvgImage s;
+
+            String format = InternationalTime ? (ShowSeconds ? "HH:mm:ss" : "HH:mm") : (ShowSeconds ? "hh:mm:sst" : "hh:mmt");
+            String time = inputTime.ToString(format);
 
             for (int i = 0; i < time.Length; i++)
             {
