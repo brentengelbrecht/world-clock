@@ -157,10 +157,7 @@ namespace WorldClock
 
         private void SetupClocksLayout()
         {
-            clocksLayout.SuspendLayout();
-            scrollbar.Width = 20;
-            local.InternationalTime = configuration.InternationalTime;
-            local.ShowSeconds = configuration.IncludeSeconds;
+            mainLayout.SuspendLayout();
             clocksLayout.Controls.Clear();
             clocksLayout.Controls.Add(local);
 
@@ -171,8 +168,8 @@ namespace WorldClock
                 clocksLayout.Controls.Add(place);
             }
 
-            clocksLayout.Invalidate();
-            clocksLayout.ResumeLayout();
+            mainLayout.Invalidate();
+            mainLayout.ResumeLayout();
         }
 
         private ZonedTimeClockControl.ZonedTimeClockControl createClock(String name, Configuration config)
@@ -224,9 +221,9 @@ namespace WorldClock
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (clocksLayout != null)
+            if (mainLayout != null)
             {
-                clocksLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
+                mainLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
             }
         }
 
@@ -238,7 +235,7 @@ namespace WorldClock
                 {
                     timer.Enabled = false;
                     NotifyIcon.Visible = true;
-                    this.Hide();
+                    Hide();
                     e.Cancel = true;
                 }
 
