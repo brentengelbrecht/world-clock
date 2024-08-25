@@ -8,13 +8,48 @@ namespace SvgImageList
     {
         private List<SvgImage.SvgImage> images;
 
+        private int digitWidth;
+        public int DigitWidth
+        {
+            get
+            {
+                return digitWidth;
+            }
+            set
+            {
+                digitWidth = value;
+            }
+        }
+
+        private int digitHeight;
+        public int DigitHeight
+        {
+            get
+            {
+                return digitHeight;
+            }
+            set
+            {
+                digitHeight = value;
+            }
+        }
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SvgImage.SvgImage this[int index]
         {
             get
             {
-                return images[index];
+                SvgImage.SvgImage s = images[index];
+                if (digitWidth > 0)
+                {
+                    s.Width = digitWidth;
+                }
+                if (digitHeight > 0)
+                {
+                    s.Height = digitHeight;
+                }
+                return s;
             }
         }
 
