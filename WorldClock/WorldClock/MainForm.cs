@@ -16,8 +16,11 @@ namespace WorldClock
         private Configuration configuration;
         private SvgImageList.SvgImageList digits;
         private SvgImageList.SvgImageList leand;
+
         private FlowLayoutPanel mainLayout;
         private DirectionalScrollerControl.DirectionalScrollerControl scrollbar;
+        private FlowLayoutPanel clocksLayout;
+
         private ZonedTimeClockControl.ZonedTimeClockControl local;
         private Timer timer;
         private double timeOffset;
@@ -34,49 +37,64 @@ namespace WorldClock
             oldSwagger = configuration.IncludeSwagger;
 
             mainLayout = new FlowLayoutPanel();
-            mainLayout.Location = new Point(0, 30);
+            mainLayout.Location = new Point(0, 0);
             mainLayout.AutoSize = true;
             mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mainLayout.FlowDirection = FlowDirection.TopDown;
-            mainLayout.SizeChanged += MainLayout_SizeChanged;
-
-            digits = new SvgImageList.SvgImageList();
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_0.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_1.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_2.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_3.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_4.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_5.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_6.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_7.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_8.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_9.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_a.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_p.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_c.svg")));
-            digits.Add(new SvgImage.SvgImage(80, 100, GetResource("digit_spc.svg")));
-
-            leand = new SvgImageList.SvgImageList();
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_0.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_1.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_2.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_3.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_4.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_5.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_6.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_7.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_8.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_9.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_a.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_p.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_c.svg")));
-            leand.Add(new SvgImage.SvgImage(80, 100, GetResource("lean_spc.svg")));
+            Controls.Add(mainLayout);
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
+            scrollbar.Height = 40;
+            scrollbar.Width = mainLayout.ClientRectangle.Width;
             scrollbar.Minimum = -12;
             scrollbar.Maximum = 12;
             scrollbar.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             scrollbar.OnValueChanged += Scrollbar_ValueChanged;
+            mainLayout.Controls.Add(scrollbar);
+
+            clocksLayout = new FlowLayoutPanel();
+            clocksLayout.Location = new Point(0, 30);
+            clocksLayout.AutoSize = true;
+            clocksLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            clocksLayout.FlowDirection = FlowDirection.TopDown;
+            clocksLayout.SizeChanged += ClocksLayout_SizeChanged;
+            mainLayout.Controls.Add(clocksLayout);
+
+            digits = new SvgImageList.SvgImageList();
+            digits.DigitWidth = 80;
+            digits.DigitHeight = 100;
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_0.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_1.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_2.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_3.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_4.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_5.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_6.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_7.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_8.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_9.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_a.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_p.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_c.svg")));
+            digits.Add(new SvgImage.SvgImage(GetResource("digit_spc.svg")));
+
+            leand = new SvgImageList.SvgImageList();
+            leand.DigitWidth = 80;
+            leand.DigitHeight = 100;
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_0.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_1.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_2.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_3.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_4.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_5.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_6.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_7.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_8.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_9.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_a.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_p.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_c.svg")));
+            leand.Add(new SvgImage.SvgImage(GetResource("lean_spc.svg")));
 
             local = new ZonedTimeClockControl.ZonedTimeClockControl();
             local.SvgImageList = configuration.IncludeSwagger ? leand : digits;
@@ -87,9 +105,7 @@ namespace WorldClock
             local.InternationalTime = configuration.InternationalTime;
             local.ShowSeconds = configuration.IncludeSeconds;
 
-            this.Controls.Add(mainLayout);
-
-            SetupMainLayout();
+            SetupClocksLayout();
 
             UpdateTimes();
 
@@ -105,7 +121,7 @@ namespace WorldClock
             return myAssembly.GetManifestResourceStream("WorldClock." + Name);
         }
 
-        private void MainLayout_SizeChanged(object sender, EventArgs e)
+        private void ClocksLayout_SizeChanged(object sender, EventArgs e)
         {
             scrollbar.Invalidate();
             scrollbar.Update();
@@ -128,7 +144,7 @@ namespace WorldClock
                     local.SvgImageList = configuration.IncludeSwagger ? leand : digits;
                     oldSwagger = configuration.IncludeSwagger;
                 }
-                SetupMainLayout();
+                SetupClocksLayout();
                 Timer.Enabled = true;
             }
         }
@@ -144,15 +160,15 @@ namespace WorldClock
             UpdateTimes();
         }
 
-        private void SetupMainLayout()
+        private void SetupClocksLayout()
         {
-            mainLayout.SuspendLayout();
+            clocksLayout.SuspendLayout();
             scrollbar.Width = 20;
             local.InternationalTime = configuration.InternationalTime;
             local.ShowSeconds = configuration.IncludeSeconds;
-            mainLayout.Controls.Clear();
-            mainLayout.Controls.Add(scrollbar);
-            mainLayout.Controls.Add(local);
+            clocksLayout.Controls.Clear();
+            clocksLayout.Controls.Add(scrollbar);
+            clocksLayout.Controls.Add(local);
 
             ArrayList ids = (ArrayList)configuration.GetTimezoneIds();
             foreach (String s in ids)
@@ -165,10 +181,10 @@ namespace WorldClock
                 place.Place = s;
                 place.InternationalTime = configuration.InternationalTime;
                 place.ShowSeconds = configuration.IncludeSeconds;
-                mainLayout.Controls.Add(place);
+                clocksLayout.Controls.Add(place);
             }
-            mainLayout.Invalidate();
-            mainLayout.ResumeLayout();
+            clocksLayout.Invalidate();
+            clocksLayout.ResumeLayout();
         }
 
         private void UpdateTimes()
@@ -181,9 +197,9 @@ namespace WorldClock
                 dt = dt.AddHours(hours).AddMinutes(minutes);
             }
 
-            for (int i = 0; i < mainLayout.Controls.Count; i++)
+            for (int i = 0; i < clocksLayout.Controls.Count; i++)
             {
-                Control ctrl = mainLayout.Controls[i];
+                Control ctrl = clocksLayout.Controls[i];
                 if (ctrl is ZonedTimeClockControl.ZonedTimeClockControl)
                 {
                     ZonedTimeClockControl.ZonedTimeClockControl next = (ZonedTimeClockControl.ZonedTimeClockControl)ctrl;
@@ -205,9 +221,9 @@ namespace WorldClock
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (mainLayout != null)
+            if (clocksLayout != null)
             {
-                mainLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
+                clocksLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
             }
         }
 
