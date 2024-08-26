@@ -78,6 +78,8 @@ namespace ZonedTimeClockControl
         {
             Size digitSize = new Size(DEFAULT_DIGIT_WIDTH, DEFAULT_DIGIT_HEIGHT);
             Size colonSize = new Size(DEFAULT_COLON_WIDTH, DEFAULT_COLON_HEIGHT);
+            const int FIXED_SIZE = 8;
+            int size = 0;
 
             DigitsPanel.Controls.Clear();
 
@@ -86,23 +88,34 @@ namespace ZonedTimeClockControl
                 if (i == 2)
                 {
                     DigitsPanel.Controls.Add(BuildPictureBox(colonSize));
+                    size += colonSize.Width + FIXED_SIZE;
                 }
                 else
                 {
                     DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
+                    size += digitSize.Width + FIXED_SIZE;
                 }
             }
 
             if (showSeconds)
             {
                 DigitsPanel.Controls.Add(BuildPictureBox(colonSize));
+                size += colonSize.Width + FIXED_SIZE;
                 DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
+                size += digitSize.Width + FIXED_SIZE;
                 DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
+                size += digitSize.Width + FIXED_SIZE;
             }
 
             if (!InternationalTime)
             {
                 DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
+                size += digitSize.Width + FIXED_SIZE;
+            }
+
+            if (size + 20 > Width)
+            {
+                Width = size + 20;
             }
         }
 
@@ -150,7 +163,7 @@ namespace ZonedTimeClockControl
 
                 s = svgImageList[j];
                 Image d = s.Draw();
-                ((PictureBox)DigitsPanel.Controls[i]).Image = d;
+                (DigitsPanel.Controls[i] as PictureBox).Image = d;
             }
         }
     }

@@ -43,7 +43,7 @@
             this.MainLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.MainLayout.Location = new System.Drawing.Point(0, 0);
             this.MainLayout.Name = "MainLayout";
-            this.MainLayout.Size = new System.Drawing.Size(448, 116);
+            this.MainLayout.Size = new System.Drawing.Size(41, 17);
             this.MainLayout.TabIndex = 0;
             // 
             // PlaceLabel
@@ -57,11 +57,12 @@
             // 
             // DigitsPanel
             // 
+            this.DigitsPanel.AutoSize = true;
             this.DigitsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.DigitsPanel.Location = new System.Drawing.Point(2, 15);
             this.DigitsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.DigitsPanel.Name = "DigitsPanel";
-            this.DigitsPanel.Size = new System.Drawing.Size(444, 99);
+            this.DigitsPanel.Size = new System.Drawing.Size(0, 0);
             this.DigitsPanel.TabIndex = 1;
             // 
             // ZonedTimeClockControl
@@ -72,7 +73,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.MainLayout);
             this.Name = "ZonedTimeClockControl";
-            this.Size = new System.Drawing.Size(451, 119);
+            this.Size = new System.Drawing.Size(44, 20);
             this.MainLayout.ResumeLayout(false);
             this.MainLayout.PerformLayout();
             this.ResumeLayout(false);

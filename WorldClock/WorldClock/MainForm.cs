@@ -38,29 +38,25 @@ namespace WorldClock
 
             mainLayout = new FlowLayoutPanel();
             mainLayout.Location = new Point(0, 30);
-            mainLayout.AutoSize = true;
-            mainLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            mainLayout.AutoSize = false;
+            mainLayout.Size = ClientSize;
             mainLayout.FlowDirection = FlowDirection.TopDown;
-            Controls.Add(mainLayout);
+            mainLayout.Resize += MainLayout_Resize;
 
             scrollbar = new DirectionalScrollerControl.DirectionalScrollerControl();
             scrollbar.Height = 24;
-            scrollbar.Width = mainLayout.ClientRectangle.Width;
+            scrollbar.Width = ClientSize.Width - 8;
             scrollbar.Minimum = -12;
             scrollbar.Maximum = 12;
-            scrollbar.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            scrollbar.Anchor = AnchorStyles.Left | AnchorStyles.Top;
             scrollbar.OnValueChanged += Scrollbar_ValueChanged;
-            mainLayout.Controls.Add(scrollbar);
 
             clocksLayout = new FlowLayoutPanel();
             clocksLayout.Location = new Point(0, 30);
-            clocksLayout.AutoSize = true;
+            clocksLayout.AutoSize = false;
             clocksLayout.AutoScroll = true;
             clocksLayout.WrapContents = false;
-            clocksLayout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             clocksLayout.FlowDirection = FlowDirection.TopDown;
-            clocksLayout.SizeChanged += ClocksLayout_SizeChanged;
-            mainLayout.Controls.Add(clocksLayout);
 
             digits = new SvgImageList.SvgImageList();
             digits.DigitWidth = 80;
@@ -102,12 +98,26 @@ namespace WorldClock
 
             SetupClocksLayout();
 
+            mainLayout.Controls.Add(scrollbar);
+            mainLayout.Controls.Add(clocksLayout);
+            Controls.Add(mainLayout);
+
             UpdateTimes();
 
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
+
+            MainLayout_Resize(this, new EventArgs());
+        }
+
+        private void MainLayout_Resize(object sender, EventArgs e)
+        {
+            scrollbar.Width = mainLayout.ClientRectangle.Width;
+            scrollbar.Refresh();
+            clocksLayout.Width = mainLayout.ClientRectangle.Width - 4;
+            clocksLayout.Height = mainLayout.ClientRectangle.Height - scrollbar.Height - 50;
         }
 
         private Stream GetResource(String Name)
@@ -159,6 +169,8 @@ namespace WorldClock
         {
             mainLayout.SuspendLayout();
             clocksLayout.Controls.Clear();
+            local.InternationalTime = configuration.InternationalTime;
+            local.ShowSeconds = configuration.IncludeSeconds;
             clocksLayout.Controls.Add(local);
 
             ArrayList ids = (ArrayList)configuration.GetTimezoneIds();
@@ -216,9 +228,12 @@ namespace WorldClock
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
+            int width = ((Form)sender).ClientSize.Width;
+            int height = ((Form)sender).ClientSize.Height;
+
             if (mainLayout != null)
             {
-                mainLayout.Size = new Size(((Form)sender).ClientSize.Width, ((Form)sender).ClientSize.Height);
+                mainLayout.Size = new Size(width, height);
             }
         }
 
