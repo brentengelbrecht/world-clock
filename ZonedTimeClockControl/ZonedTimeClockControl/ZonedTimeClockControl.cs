@@ -6,6 +6,11 @@ namespace ZonedTimeClockControl
 {
     public partial class ZonedTimeClockControl: UserControl
     {
+        const int DEFAULT_DIGIT_WIDTH = 70;
+        const int DEFAULT_DIGIT_HEIGHT = 95;
+        const int DEFAULT_COLON_WIDTH = 18;
+        const int DEFAULT_COLON_HEIGHT = DEFAULT_DIGIT_HEIGHT;
+
         private SvgImageList.SvgImageList svgImageList;
         public SvgImageList.SvgImageList SvgImageList
         {
@@ -71,8 +76,8 @@ namespace ZonedTimeClockControl
 
         private void Configure()
         {
-            Size digitSize = new Size(70, 95);
-            Size colonSize = new Size(18, 95);
+            Size digitSize = new Size(DEFAULT_DIGIT_WIDTH, DEFAULT_DIGIT_HEIGHT);
+            Size colonSize = new Size(DEFAULT_COLON_WIDTH, DEFAULT_COLON_HEIGHT);
 
             DigitsPanel.Controls.Clear();
 
