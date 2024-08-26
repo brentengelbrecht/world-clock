@@ -36,6 +36,15 @@ namespace WorldClock
             configuration = new Configuration(registryHome);
             oldSwagger = configuration.IncludeSwagger;
 
+            if (configuration.LocationX > 100)
+            {
+                Location = new Point(configuration.LocationX, configuration.LocationY);
+            }
+            if (configuration.SizeWide > 100)
+            {
+                Size = new Size(configuration.SizeWide, configuration.SizeHigh);
+            }
+
             mainLayout = new FlowLayoutPanel();
             mainLayout.Location = new Point(0, 30);
             mainLayout.AutoSize = false;
@@ -241,6 +250,7 @@ namespace WorldClock
         {
             if (!doExit)
             {
+                configuration.Save();
                 if (configuration.MinimizeToStatusArea && e.CloseReason == CloseReason.UserClosing)
                 {
                     timer.Enabled = false;
@@ -268,6 +278,15 @@ namespace WorldClock
         {
             AboutForm about = new AboutForm();
             about.Show();
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            configuration.LocationX = Location.X;
+            configuration.LocationY = Location.Y;
+            configuration.SizeWide = Size.Width;
+            configuration.SizeHigh = Size.Height;
+            configuration.Save();
         }
     }
 }

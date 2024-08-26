@@ -16,10 +16,10 @@ namespace WorldClock
 
         public Configuration(String RegistryHome)
         {
-            this.registryHome = RegistryHome;
-            this.keyTimezones = registryHome + @"\Timezones";
-            this.keyDisplay = registryHome + @"\Display";
-            this.keyProgram = registryHome + @"\Program";
+            registryHome = RegistryHome;
+            keyTimezones = registryHome + @"\Timezones";
+            keyDisplay = registryHome + @"\Display";
+            keyProgram = registryHome + @"\Program";
             Load();
         }
 
@@ -124,6 +124,62 @@ namespace WorldClock
             }
         }
 
+        private int locationX;
+        public int LocationX
+        {
+            get
+            {
+                return locationX;
+            }
+            set
+            {
+                locationX = value;
+                isModified = true;
+            }
+        }
+
+        private int locationY;
+        public int LocationY
+        {
+            get
+            {
+                return locationY;
+            }
+            set
+            {
+                locationY = value;
+                isModified = true;
+            }
+        }
+
+        private int sizeWide;
+        public int SizeWide
+        {
+            get
+            {
+                return sizeWide;
+            }
+            set
+            {
+                sizeWide = value;
+                isModified = true;
+            }
+        }
+
+        private int sizeHigh;
+        public int SizeHigh
+        {
+            get
+            {
+                return sizeHigh;
+            }
+            set
+            {
+                sizeHigh = value;
+                isModified = true;
+            }
+        }
+
         public void Load()
         {
             ArrayList newList = new ArrayList();
@@ -179,6 +235,42 @@ namespace WorldClock
                         catch (Exception)
                         {
                             includeSwagger = false;
+                        }
+
+                        try
+                        {
+                            locationX = (int)tz.GetValue("LocationX");
+                        }
+                        catch (Exception)
+                        {
+                            locationX = -1;
+                        }
+
+                        try
+                        {
+                            locationY = (int)tz.GetValue("LocationY");
+                        }
+                        catch (Exception)
+                        {
+                            locationY = -1;
+                        }
+
+                        try
+                        {
+                            sizeWide = (int)tz.GetValue("SizeWide");
+                        }
+                        catch (Exception)
+                        {
+                            sizeWide = -1;
+                        }
+
+                        try
+                        {
+                            sizeHigh = (int)tz.GetValue("SizeHigh");
+                        }
+                        catch (Exception)
+                        {
+                            sizeHigh = -1;
                         }
                     }
 
@@ -248,6 +340,16 @@ namespace WorldClock
                         tz.SetValue("InternationalTime", internationalTime);
                         tz.SetValue("IncludeSeconds", includeSeconds);
                         tz.SetValue("IncludeSwagger", includeSwagger);
+                        if ((locationX != -1) && (locationY != -1))
+                        {
+                            tz.SetValue("LocationX", locationX);
+                            tz.SetValue("LocationY", locationY);
+                        }
+                        if ((sizeWide != -1) && (sizeHigh != -1))
+                        {
+                            tz.SetValue("SizeWide", sizeWide);
+                            tz.SetValue("SizeHigh", sizeHigh);
+                        }
                     }
 
                     hkcu.DeleteSubKey(keyProgram, false);
