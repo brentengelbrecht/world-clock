@@ -66,51 +66,46 @@ namespace ZonedTimeClockControl
         {
             InitializeComponent();
 
-            DigitsPanel.AutoSize = true;
             Configure();
         }
 
         private void Configure()
         {
-            const int digitWidth = 70;
-            const int digitHeight = 95;
-            const int colonWidth = 18;
-            const int colonHeight = 95;
+            Size digitSize = new Size(70, 95);
+            Size colonSize = new Size(18, 95);
 
             DigitsPanel.Controls.Clear();
 
             for (int i = 0; i < 5; i++)
             {
-                int w = digitWidth;
-                int h = digitHeight;
-
                 if (i == 2)
                 {
-                    w = colonWidth;
-                    h = colonHeight;
+                    DigitsPanel.Controls.Add(BuildPictureBox(colonSize));
                 }
-
-                DigitsPanel.Controls.Add(BuildPictureBox(w, h));
+                else
+                {
+                    DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
+                }
             }
 
-            if (ShowSeconds)
+            if (showSeconds)
             {
-                DigitsPanel.Controls.Add(BuildPictureBox(colonWidth, digitHeight));
-                DigitsPanel.Controls.Add(BuildPictureBox(digitWidth, digitHeight));
-                DigitsPanel.Controls.Add(BuildPictureBox(digitWidth, digitHeight));
+                DigitsPanel.Controls.Add(BuildPictureBox(colonSize));
+                DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
+                DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
             }
 
             if (!InternationalTime)
             {
-                DigitsPanel.Controls.Add(BuildPictureBox(digitWidth, digitHeight));
+                DigitsPanel.Controls.Add(BuildPictureBox(digitSize));
             }
         }
 
-        private PictureBox BuildPictureBox(int Width, int Height)
+        private PictureBox BuildPictureBox(Size dimensions)
         {
             PictureBox p = new PictureBox();
-            p.Width = Width;
-            p.Height = Height;
+            p.Width = dimensions.Width;
+            p.Height = dimensions.Height;
             return p;
         }
 
